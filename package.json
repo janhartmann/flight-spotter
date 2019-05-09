@@ -1,0 +1,26 @@
+{
+  "name": "flight-spotter",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "install": "concurrently --prefix-colors magenta,blue -n server,client \"yarn server:install\" \"yarn client:install\"",
+    "start": "gql-gen && concurrently --prefix-colors magenta,blue -n server,client \"yarn server:start\" \"yarn client:start\"",
+    "build": "gql-gen",
+    "server:install": "cd server && yarn install",
+    "server:build": "cd server && yarn build",
+    "server:start": "cd server && yarn start",
+    "client:install": "cd client && yarn install",
+    "client:build": "cd client && yarn build",
+    "client:start": "cd client && yarn start"
+  },
+  "devDependencies": {
+    "@graphql-codegen/cli": "^1.1.3",
+    "@graphql-codegen/fragment-matcher": "^1.1.3",
+    "@graphql-codegen/typescript-compatibility": "^1.1.3",
+    "@graphql-codegen/typescript-operations": "^1.1.3",
+    "@graphql-codegen/typescript-react-apollo": "^1.1.3",
+    "@graphql-codegen/typescript-resolvers": "^1.1.3",
+    "graphql": "^14.2.1",
+    "concurrently": "^4.1.0"
+  }
+}

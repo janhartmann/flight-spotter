@@ -1,0 +1,8 @@
+# import * from 'flight.graphql'
+
+type Query {
+  "Gets all flights"
+  flights(input: FlightsInput!): [Flight!]
+  "Gets a single flight"
+  flight(input: FlightInput!): Flight
+}

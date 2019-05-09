@@ -1,0 +1,23 @@
+query GetFlights($input: FlightsInput!) {
+  flights(input: $input) {
+    id
+    callsign
+    coordinates {
+      longitude
+      latitude
+    }
+    grounded
+    direction
+  }
+}
+
+query GetFlightPopup($input: FlightInput!) {
+  flight(input: $input) {
+    id
+    callsign
+    coordinates {
+      longitude
+      latitude
+    }
+  }
+}

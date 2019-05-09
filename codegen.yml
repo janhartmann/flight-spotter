@@ -1,0 +1,30 @@
+schema: "server/src/schema/schema.graphql"
+documents:
+  - "client/src/**/*.graphql"
+overwrite: true
+generates:
+  server/src/resolvers/generated-types.ts:
+    config:
+      contextType: ../context#IContext
+      scalars:
+        Date: Date
+        DateTime: Date
+      namingConvention:
+        enumValues: change-case#upperCase
+      mappers:
+        Flight: ../api/FlightApi#IOpenSkyApiStateResponse
+        Trajectory: ../api/FlightApi#IOpenSkyApiTrajectoryResponse
+    plugins:
+      - typescript
+      - typescript-resolvers
+  client/src/data/generated-types.tsx:
+    config:
+      scalars:
+        Date: Date
+        DateTime: Date
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-react-apollo
+      - typescript-compatibility
+      - fragment-matcher

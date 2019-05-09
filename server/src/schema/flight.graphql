@@ -1,0 +1,116 @@
+input FlightInput {
+  "Unique ICAO 24-bit address of the transponder in hex string representation."
+  id: String!
+}
+
+input FlightsInput {
+  latitudeMin: Float!
+  longitudeMin: Float!
+  latitudeMax: Float!
+  longitudeMax: Float!
+}
+
+type Flight {
+  "Unique ICAO 24-bit address of the transponder in hex string representation."
+  id: String!
+
+  "Callsign of the vehicle (8 chars). Can be null if no callsign has been received."
+  callsign: String
+
+  "Country name inferred from the ICAO 24-bit address."
+  originCountry: String!
+
+  "Unix timestamp (seconds) for the last position update. Can be null if no position report was received by OpenSky within the past 15s."
+  timePosition: Int
+
+  "Unix timestamp (seconds) for the last update in general. This field is updated for any new, valid message received from the transponder."
+  lastContact: Int!
+
+  "WGS-84 longitude and latitude in decimal degrees. Can be null."
+  coordinates: Coordinates
+
+  "Flight altitude. Can be null."
+  altitude: Altitude
+
+  "Boolean value which indicates if the position was retrieved from a surface position report."
+  grounded: Boolean
+
+  "Velocity over ground in m/s. Can be null."
+  velocity: Float
+
+  "Direction in decimal degrees clockwise from north (north=0°). Can be null."
+  direction: Float
+
+  "Vertical rate in m/s. A positive value indicates that the flight is climbing, a negative value indicates that it descends. Can be null."
+  verticalRate: Float
+
+  "ID's of the receivers which contributed to this state vector. Is null if no filtering for sensor was used in the request."
+  sensors: [Int!]
+
+  "The transponder code aka Squawk. Can be null."
+  squawk: String
+
+  "Whether flight status indicates special purpose indicator."
+  spi: Boolean!
+
+  "Origin of this state’s position"
+  positionSource: PositionSource
+
+  "Retrieve the trajectory for the flight"
+  trajectory(input: TrajectoryInput!): Trajectory
+}
+
+enum PositionSource {
+  ADS_B
+  ASTERIX
+  MLAT
+}
+
+type Coordinates {
+  "WGS-84 longitude Can be null."
+  longitude: Float
+
+  "WGS-84 latitude Can be null."
+  latitude: Float
+}
+
+type Altitude {
+  "Barometric altitude in meters. Can be null."
+  barometric: Float
+
+  "Geometric altitude in meters. Can be null."
+  geometric: Float
+}
+
+input TrajectoryInput {
+  "Unix time in seconds since epoch. It can be any time betwee start and end of a known flight. If time = 0, get the live track if there is any flight ongoing"
+  time: Int!
+}
+
+type Trajectory {
+  "Time of the first waypoint in seconds since epoch (Unix time)."
+  startTime: Int!
+
+  "Time of the last waypoint in seconds since epoch (Unix time)."
+  endTime: Int!
+
+  "Waypoints of the trajectory."
+  paths: [TrajectoryPath!]
+}
+
+type TrajectoryPath {
+  "Time which the given waypoint is associated with in seconds since epoch (Unix time)."
+  time: Int!
+
+  "WGS-84 longitude and latitude in decimal degrees. Can be null."
+  coordinates: Coordinates!
+
+  "Flight altitude. Can be null."
+  altitude: Altitude
+
+  "True track in decimal degrees clockwise from north (north=0°). Can be null."
+  direction: Float
+
+  "Boolean value which indicates if the position was retrieved from a surface position report."
+  grounded: Boolean
+}

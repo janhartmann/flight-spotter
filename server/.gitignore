@@ -1,0 +1,4 @@
+# build directory
+dist/
+
+src/resolvers/generated-types.ts
