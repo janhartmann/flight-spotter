@@ -1,4 +1,4 @@
 # build directory
 dist/
 
-src/data/generated-types.ts
+src/data/generated-types.tsx
