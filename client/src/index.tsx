@@ -4,13 +4,14 @@ import { ThemeProvider } from "react-jss";
 import { ApolloProvider } from "react-apollo";
 
 import "./styles/index.css";
+import { DEFAULT_THEME } from "./styles/theme";
 
 import App from "./App";
 import { client } from "./data/apollo";
 
 const CompositionRoot: React.SFC = () => (
   <ApolloProvider client={client}>
-    <ThemeProvider theme={{}}>
+    <ThemeProvider theme={DEFAULT_THEME}>
       <App />
     </ThemeProvider>
   </ApolloProvider>

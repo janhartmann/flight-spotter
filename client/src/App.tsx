@@ -1,11 +1,13 @@
 import * as React from "react";
 import injectSheet, { StyleCreator, StyledComponentProps } from "react-jss";
-import * as mapboxgl from "mapbox-gl";
+import mapboxgl from "mapbox-gl";
 
 import MapBox, { IViewState } from "./map/MapBox";
 import FlightLayer from "./flights/FlightLayer";
 import FlightsGeoJsonDataSource from "./flights/FlightsGeoJsonDataSource";
 import FlightPopup from "./flights/FlightPopup";
+import { ITheme } from "./styles/theme";
+import FlightInformationCard from "./flights/FlightInformationCard";
 
 const App: React.FC<StyledComponentProps> = ({ classes }) => {
   const [hoveredFlight, setHoveredFlight] = React.useState<string>(null);
@@ -57,6 +59,7 @@ const App: React.FC<StyledComponentProps> = ({ classes }) => {
               onMouseLeave={handleClosePopup}
             />
             {hoveredFlight && <FlightPopup id={hoveredFlight} />}
+            <FlightInformationCard className={classes.information} />
           </React.Fragment>
         )}
       </MapBox>
@@ -64,12 +67,20 @@ const App: React.FC<StyledComponentProps> = ({ classes }) => {
   );
 };
 
-const styles: StyleCreator = () => ({
+const styles: StyleCreator = (theme: ITheme) => ({
   root: {
-    fontFamily: "'Open Sans', sans-serif",
+    fontFamily: theme.fonts.primary,
     width: "100%",
     height: "100%",
     position: "relative"
+  },
+  information: {
+    position: "absolute",
+    bottom: 30,
+    left: 10,
+    width: "calc(100% - 60px)",
+    zIndex: 10,
+    height: 130
   }
 });
 
