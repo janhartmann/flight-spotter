@@ -41,9 +41,7 @@ const CardHeader: React.FC<ICardHeaderProps> = ({
 const styles: StyleCreator = (theme: ITheme) => ({
   root: {
     display: "flex",
-    alignItems: "center",
-    borderBottom: `1px solid ${theme.colors.lightGray[3]}`,
-    paddingBottom: theme.layout.gutter
+    alignItems: "center"
   },
   headerTitle: {
     flex: 1

@@ -11,6 +11,7 @@ import FlightInformationCard from "./flights/FlightInformationCard";
 
 const App: React.FC<StyledComponentProps> = ({ classes }) => {
   const [hoveredFlight, setHoveredFlight] = React.useState<string>(null);
+  const [selectedFlight, setSelectedFlight] = React.useState<string>(null);
   const [view, setView] = React.useState<IViewState>({
     center: new mapboxgl.LngLat(10.210365, 56.156635),
     zoom: 6,
@@ -24,7 +25,11 @@ const App: React.FC<StyledComponentProps> = ({ classes }) => {
     [view]
   );
 
-  const handleOpenPopup = (
+  const handleMapClick = React.useCallback(() => {
+    setSelectedFlight(null);
+  }, [selectedFlight]);
+
+  const handleFlightMouseEnter = (
     e: mapboxgl.MapMouseEvent & {
       features?: mapboxgl.MapboxGeoJSONFeature[];
     } & mapboxgl.EventData
@@ -32,14 +37,22 @@ const App: React.FC<StyledComponentProps> = ({ classes }) => {
     setHoveredFlight(e.features[0].properties.id);
   };
 
-  const handleClosePopup = () => {
+  const handleFlightMouseOff = React.useCallback(() => {
     setHoveredFlight(null);
+  }, [hoveredFlight]);
+
+  const handleFlightClick = (
+    e: mapboxgl.MapMouseEvent & {
+      features?: mapboxgl.MapboxGeoJSONFeature[];
+    } & mapboxgl.EventData
+  ) => {
+    setSelectedFlight(e.features[0].properties.id);
   };
 
   return (
     <div className={classes.root}>
       <MapBox
-        style="mapbox://styles/mapbox/dark-v9"
+        style="mapbox://styles/janhartmann/cjviak2mq05ik1ct67dacly2l"
         center={view.center}
         zoom={view.zoom}
         withCompass={true}
@@ -48,6 +61,7 @@ const App: React.FC<StyledComponentProps> = ({ classes }) => {
         withGeolocateControl={true}
         accessToken="pk.eyJ1IjoiamFuaGFydG1hbm4iLCJhIjoiY2pwMTNreGczMzFzZDN2cGFxMWYwN2Q4MSJ9.k00uopdj4dH_lW0cgNC8Yg"
         onChange={handleMapChange}
+        onClick={handleMapClick}
       >
         {view.bounds && (
           <React.Fragment>
@@ -55,11 +69,16 @@ const App: React.FC<StyledComponentProps> = ({ classes }) => {
             <FlightLayer
               id="flights"
               source="flights"
-              onMouseEnter={handleOpenPopup}
-              onMouseLeave={handleClosePopup}
+              onMouseEnter={handleFlightMouseEnter}
+              onMouseLeave={handleFlightMouseOff}
+              onClick={handleFlightClick}
             />
-            {hoveredFlight && <FlightPopup id={hoveredFlight} />}
-            <FlightInformationCard className={classes.information} />
+            {(hoveredFlight || selectedFlight) && (
+              <FlightPopup id={hoveredFlight || selectedFlight} />
+            )}
+            {selectedFlight && (
+              <FlightInformationCard className={classes.information} />
+            )}
           </React.Fragment>
         )}
       </MapBox>
@@ -70,17 +89,18 @@ const App: React.FC<StyledComponentProps> = ({ classes }) => {
 const styles: StyleCreator = (theme: ITheme) => ({
   root: {
     fontFamily: theme.fonts.primary,
+    color: theme.colors.text,
     width: "100%",
     height: "100%",
     position: "relative"
   },
   information: {
     position: "absolute",
-    bottom: 30,
-    left: 10,
-    width: "calc(100% - 60px)",
+    bottom: 40,
+    left: 40,
+    width: "calc(100% - 80px)",
     zIndex: 10,
-    height: 130
+    height: 250
   }
 });
 

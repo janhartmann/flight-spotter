@@ -5,6 +5,7 @@ import * as mapboxgl from "mapbox-gl";
 import classNames from "classnames";
 
 import { MapContext } from "./MapContext";
+import { ITheme } from "../styles/theme";
 
 export interface IMapPopupProps extends StyledComponentProps {
   center: mapboxgl.LngLat;
@@ -45,8 +46,9 @@ const MapPopup: React.FC<IMapPopupProps> = ({
   return ReactDOM.createPortal(children, container.current);
 };
 
-const styles: StyleCreator = () => ({
+const styles: StyleCreator = (theme: ITheme) => ({
   popup: {
+    color: theme.colors.dark[1],
     "& > .mapboxgl-popup-content": {
       padding: "3px 6px"
     }

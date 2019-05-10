@@ -70,7 +70,7 @@ const MapBox: React.FC<IMapBoxProps> = ({
           showCompass: withCompass,
           showZoom: withZoom
         }),
-        "bottom-right"
+        "top-right"
       );
     }
 
@@ -89,7 +89,7 @@ const MapBox: React.FC<IMapBoxProps> = ({
           },
           trackUserLocation: true
         }),
-        "bottom-right"
+        "top-right"
       );
     }
   };

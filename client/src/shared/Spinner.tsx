@@ -2,6 +2,7 @@ import * as React from "react";
 import classNames from "classnames";
 import injectSheet, { StyledComponentProps, StyleCreator } from "react-jss";
 import { Size } from "./constants";
+import { ITheme } from "../styles/theme";
 
 export interface ISpinnerProps extends StyledComponentProps {
   className?: string;
@@ -25,7 +26,7 @@ const Spinner: React.FC<ISpinnerProps> = ({
   );
 };
 
-const styles: StyleCreator = () => ({
+const styles: StyleCreator = (theme: ITheme) => ({
   "@keyframes clip": {
     "0%": {
       transform: "rotate(0deg) scale(1)"
@@ -47,7 +48,8 @@ const styles: StyleCreator = () => ({
     animationFillMode: "both",
     cursor: "wait",
     width: 50,
-    height: 50
+    height: 50,
+    color: theme.colors.dark[1]
   },
   [Size.SMALL]: {
     width: 20,

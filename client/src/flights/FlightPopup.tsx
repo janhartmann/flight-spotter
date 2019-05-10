@@ -33,7 +33,7 @@ const FlightPopup: React.FC<IFlightPopupProps> = ({ classes, id }) => {
               closeOnClick: false
             }}
           >
-            {data.flight.callsign}
+            {data.flight.callsign || "UNKNOWN"}
           </MapPopup>
         );
       }}

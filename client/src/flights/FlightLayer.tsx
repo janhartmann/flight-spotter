@@ -1,8 +1,10 @@
 import * as React from "react";
+import { withTheme, WithTheme } from "react-jss";
 
 import { MapContext } from "../map/MapContext";
+import { ITheme } from "../styles/theme";
 
-export interface IFightLayerProps {
+export interface IFightLayerProps extends WithTheme<ITheme> {
   id: string;
   source: string;
   onClick?: (
@@ -23,6 +25,7 @@ export interface IFightLayerProps {
 }
 
 const FlightLayer: React.FC<IFightLayerProps> = ({
+  theme,
   id,
   source,
   onClick,
@@ -67,4 +70,4 @@ const FlightLayer: React.FC<IFightLayerProps> = ({
   return null;
 };
 
-export default FlightLayer;
+export default withTheme(FlightLayer);

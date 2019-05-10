@@ -39,9 +39,9 @@ const styles: StyleCreator = (theme: ITheme) => ({
   root: {
     display: "flex",
     flexDirection: "column",
-    backgroundColor: theme.colors.white,
+    backgroundColor: theme.colors.dark[2],
     borderRadius: theme.layout.borderRadius,
-    border: `1px solid ${theme.colors.lightGray[3]}`,
+    border: `1px solid ${theme.colors.dark[5]}`,
     padding: theme.layout.gutter,
     boxShadow: theme.layout.boxShadow,
     position: "relative"

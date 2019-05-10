@@ -24,14 +24,12 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
   }
 });
 
-const fragmentMatcher = new IntrospectionFragmentMatcher({
-  introspectionQueryResultData: introspectionResultData
-});
-
 export const client = new ApolloClient({
   link: errorLink.concat(httpLink),
   cache: new InMemoryCache({
-    fragmentMatcher,
+    fragmentMatcher: new IntrospectionFragmentMatcher({
+      introspectionQueryResultData: introspectionResultData
+    }),
     cacheRedirects: {
       Query: {
         flight: (_, args, { getCacheKey }) =>

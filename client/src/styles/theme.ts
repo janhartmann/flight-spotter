@@ -27,7 +27,7 @@ export interface ITheme {
 export const DEFAULT_THEME: ITheme = {
   colors: {
     background: "#10161A",
-    text: "#5C7080",
+    text: "#F5F8FA",
     headings: "#FFFFFF",
     white: "#FFFFFF",
     dark: {
