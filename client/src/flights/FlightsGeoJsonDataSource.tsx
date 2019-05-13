@@ -1,13 +1,17 @@
 import * as React from "react";
+import injectSheet, { StyleCreator, StyledComponentProps } from "react-jss";
+
 import { GetFlights } from "../data/generated-types";
 import GeoJsonDataSource from "../map/GeoJsonDataSource";
+import Spinner from "../shared/Spinner";
 
-interface IFlightsGeoJsonDataSourceProps {
+interface IFlightsGeoJsonDataSourceProps extends StyledComponentProps {
   id: string;
   bounds: mapboxgl.LngLatBounds;
 }
 
 const FlightsGeoJsonDataSource: React.FC<IFlightsGeoJsonDataSourceProps> = ({
+  classes,
   id,
   bounds,
   children
@@ -25,10 +29,15 @@ const FlightsGeoJsonDataSource: React.FC<IFlightsGeoJsonDataSourceProps> = ({
       notifyOnNetworkStatusChange={true}
       pollInterval={10000}
     >
-      {({ data }) => {
+      {({ data, loading }) => {
         const featureCollection = convert(data.flights);
         return (
           <GeoJsonDataSource id={id} data={featureCollection}>
+            {loading && (
+              <div className={classes.spinner}>
+                <Spinner size="small" />
+              </div>
+            )}
             {children}
           </GeoJsonDataSource>
         );
@@ -72,4 +81,21 @@ const convert = (
   };
 };
 
-export default FlightsGeoJsonDataSource;
+const styles: StyleCreator = () => ({
+  spinner: {
+    position: "absolute",
+    zIndex: 10,
+    top: 10,
+    left: 10,
+    background: "#fff",
+    width: 30,
+    height: 30,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    boxShadow: "0 0 0 2px rgba(0, 0, 0, 0.1)",
+    borderRadius: 4
+  }
+});
+
+export default injectSheet(styles)(FlightsGeoJsonDataSource);

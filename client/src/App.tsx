@@ -76,7 +76,6 @@ const App: React.FC<StyledComponentProps> = ({ classes }) => {
                 onClick={handleFlightClick}
               />
             </FlightsGeoJsonDataSource>
-
             {(hoveredFlight || selectedFlight) && (
               <FlightPopup id={hoveredFlight || selectedFlight} />
             )}
