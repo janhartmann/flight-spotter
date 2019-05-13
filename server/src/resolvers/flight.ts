@@ -72,5 +72,12 @@ export const flightResolver: FlightResolvers = {
   },
   trajectory: async (parent, args, context) => {
     return context.dataSources.flightApi.getTrajectory(parent[0]);
+  },
+  route: async (parent, args, context) => {
+    if (parent[1]) {
+      // parent[1] is callsign
+      return context.dataSources.flightApi.getRoute(parent[1].trim());
+    }
+    return null;
   }
 };

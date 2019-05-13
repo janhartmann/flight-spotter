@@ -12,8 +12,10 @@ generates:
       namingConvention:
         enumValues: change-case#upperCase
       mappers:
-        Flight: ../api/FlightApi#IOpenSkyApiStateResponse
-        Trajectory: ../api/FlightApi#IOpenSkyApiTrajectoryResponse
+        Flight: ../api/OpenSkyNetworkApi#IOpenSkyApiStateResponse
+        Trajectory: ../api/OpenSkyNetworkApi#IOpenSkyApiTrajectoryResponse
+        Route: ../api/OpenSkyNetworkApi#IOpenSkyApiRouteResponse
+        Airport: ../api/OpenSkyNetworkApi#IOpenSkyApiAirportResponse
     plugins:
       - typescript
       - typescript-resolvers

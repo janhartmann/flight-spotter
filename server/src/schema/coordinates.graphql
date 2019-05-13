@@ -1,0 +1,7 @@
+type Coordinates {
+  "WGS-84 longitude Can be null."
+  longitude: Float
+
+  "WGS-84 latitude Can be null."
+  latitude: Float
+}

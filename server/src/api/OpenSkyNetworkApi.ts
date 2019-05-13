@@ -47,14 +47,39 @@ export interface IOpenSkyApiTrajectoryPathResponse {
   [5]: boolean; // on ground
 }
 
-export interface IFlightApi {
+export interface IOpenSkyApiRouteResponse {
+  callsign: string;
+  route: [string, string];
+  updateTime: number;
+  operatorIata: string;
+  flightNumber: number;
+}
+
+export interface IOpenSkyApiAirportResponse {
+  icao: string;
+  iata: string;
+  name: string;
+  city: string;
+  type: string;
+  position: {
+    longitude: number;
+    latitude: number;
+    altitude: number;
+    reasonable: boolean;
+  };
+}
+
+export interface IOpenSkyNetworkApi {
   getFlights(bounds: number[][]): Promise<IOpenSkyApiStateResponse[]>;
   getFlight(icao24: string): Promise<IOpenSkyApiStateResponse>;
   getTrajectory(icao24: string): Promise<IOpenSkyApiTrajectoryResponse>;
+  getRoute(callsign: string): Promise<IOpenSkyApiRouteResponse>;
+  getAirports(bounds: number[][]): Promise<IOpenSkyApiAirportResponse[]>;
+  getAirport(icao: string): Promise<IOpenSkyApiAirportResponse>;
 }
 
-export default class FlightApi extends RESTDataSource<IContext>
-  implements IFlightApi {
+export default class OpenSkyNetworkApi extends RESTDataSource<IContext>
+  implements IOpenSkyNetworkApi {
   get baseURL() {
     return "https://opensky-network.org/api/";
   }
@@ -95,6 +120,40 @@ export default class FlightApi extends RESTDataSource<IContext>
     try {
       return await this.get<IOpenSkyApiTrajectoryResponse>(
         `tracks/?icao24=${icao24}`
+      );
+    } catch {
+      return null;
+    }
+  }
+
+  public async getRoute(callsign: string): Promise<IOpenSkyApiRouteResponse> {
+    try {
+      return await this.get<IOpenSkyApiRouteResponse>(
+        `routes/?callsign=${callsign}`
+      );
+    } catch {
+      return null;
+    }
+  }
+
+  public async getAirports(
+    bounds: number[][]
+  ): Promise<IOpenSkyApiAirportResponse[]> {
+    try {
+      return await this.get<IOpenSkyApiAirportResponse[]>(
+        `airports/region?lamin=${bounds[0][0]}&lomin=${bounds[0][1]}&lamax=${
+          bounds[1][0]
+        }&lomax=${bounds[1][1]}`
+      );
+    } catch {
+      return null;
+    }
+  }
+
+  public async getAirport(icao: string): Promise<IOpenSkyApiAirportResponse> {
+    try {
+      return await this.get<IOpenSkyApiAirportResponse>(
+        `airports/?icao=${icao}`
       );
     } catch {
       return null;

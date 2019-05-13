@@ -34,30 +34,20 @@ const FlightTrajectoryGeoJsonDataSource: React.FC<
 const convert = (
   flight: GetFlightTrajectory.Flight
 ): GeoJSON.Feature<GeoJSON.LineString> => {
-  if (!flight || !flight.trajectory) {
-    return {
-      type: "Feature",
-      properties: {},
-      geometry: {
-        type: "LineString",
-        coordinates: []
-      }
-    };
-  }
-
   return {
     type: "Feature",
-    properties: {
-      id: flight.id
-    },
+    properties: {},
     geometry: {
       type: "LineString",
-      coordinates: [
-        ...flight.trajectory.paths.map(path => [
-          path.coordinates.longitude,
-          path.coordinates.latitude
-        ])
-      ]
+      coordinates:
+        flight && flight.trajectory
+          ? [
+              ...flight.trajectory.paths.map(path => [
+                path.coordinates.longitude,
+                path.coordinates.latitude
+              ])
+            ]
+          : []
     }
   };
 };

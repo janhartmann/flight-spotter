@@ -1,9 +1,9 @@
-import { IFlightApi } from "./api/FlightApi";
+import { IOpenSkyNetworkApi } from "./api/OpenSkyNetworkApi";
 
 export interface IContext {
   dataSources?: Partial<IDataServices>;
 }
 
 export interface IDataServices {
-  flightApi: IFlightApi;
+  flightApi: IOpenSkyNetworkApi;
 }

@@ -5,7 +5,7 @@ import schema from "./schema";
 import resolvers from "./resolvers";
 import { IContext } from "./context";
 
-import FlightApi from "./api/FlightApi";
+import FlightApi from "./api/OpenSkyNetworkApi";
 
 export const server = new ApolloServer({
   introspection: true,

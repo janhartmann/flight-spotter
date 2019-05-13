@@ -1,3 +1,5 @@
+# import Coordinates from 'coordinates.graphql'
+
 input FlightInput {
   "Unique ICAO 24-bit address of the transponder in hex string representation."
   id: String!
@@ -58,20 +60,23 @@ type Flight {
 
   "Retrieve the trajectory for the flight"
   trajectory: Trajectory
+
+  "Retrieve the current route for the flight"
+  route: Route
+}
+
+type Route {
+  "Estimated departure airport. Can be null if the airport could not be identified."
+  departure: Airport
+
+  "Estimated arrival airport. Can be null if the airport could not be identified."
+  arrival: Airport
 }
 
 enum PositionSource {
   ADS_B
   ASTERIX
   MLAT
-}
-
-type Coordinates {
-  "WGS-84 longitude Can be null."
-  longitude: Float
-
-  "WGS-84 latitude Can be null."
-  latitude: Float
 }
 
 type Altitude {

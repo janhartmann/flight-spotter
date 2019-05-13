@@ -1,0 +1,19 @@
+# import Coordinates from 'coordinates.graphql'
+
+input AirportInput {
+  id: String!
+}
+
+input AirportsInput {
+  latitudeMin: Float!
+  longitudeMin: Float!
+  latitudeMax: Float!
+  longitudeMax: Float!
+}
+
+type Airport {
+  id: String!
+  iata: String
+  name: String!
+  coordinates: Coordinates!
+}
