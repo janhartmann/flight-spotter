@@ -71,9 +71,6 @@ export const flightResolver: FlightResolvers = {
     }
   },
   trajectory: async (parent, args, context) => {
-    return context.dataSources.flightApi.getTrajectory(
-      parent[0],
-      args.input.time
-    );
+    return context.dataSources.flightApi.getTrajectory(parent[0]);
   }
 };

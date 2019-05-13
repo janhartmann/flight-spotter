@@ -7,23 +7,35 @@ import Spinner from "../shared/Spinner";
 
 export interface IGeoJsonDataSourceProps extends StyledComponentProps {
   id: string;
-  data: GeoJSON.FeatureCollection<GeoJSON.Point>;
-  loading?: boolean;
+  data: GeoJSON.FeatureCollection | GeoJSON.Feature;
 }
 
 const GeoJsonDataSource: React.FC<IGeoJsonDataSourceProps> = ({
   classes,
   id,
   data,
-  loading
+  children
 }) => {
   const map = React.useContext(MapContext);
 
-  React.useEffect(() => {
+  React.useLayoutEffect(() => {
     map.addSource(id, {
       type: "geojson",
       data
     });
+
+    return () => {
+      /**
+       * We need to make sure we remove all layers
+       * depending on the source before removing it.
+       */
+      for (const layer of map.getStyle().layers) {
+        if (layer.source === id) {
+          map.removeLayer(layer.id);
+        }
+      }
+      map.removeSource(id);
+    };
   }, []);
 
   React.useEffect(() => {
@@ -33,11 +45,7 @@ const GeoJsonDataSource: React.FC<IGeoJsonDataSourceProps> = ({
     }
   }, [data]);
 
-  return loading ? (
-    <div className={classes.spinner}>
-      <Spinner size="small" />
-    </div>
-  ) : null;
+  return <React.Fragment>{children}</React.Fragment>;
 };
 
 const styles: StyleCreator = () => ({

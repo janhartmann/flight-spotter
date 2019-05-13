@@ -57,7 +57,7 @@ type Flight {
   positionSource: PositionSource
 
   "Retrieve the trajectory for the flight"
-  trajectory(input: TrajectoryInput!): Trajectory
+  trajectory: Trajectory
 }
 
 enum PositionSource {
@@ -80,11 +80,6 @@ type Altitude {
 
   "Geometric altitude in meters. Can be null."
   geometric: Float
-}
-
-input TrajectoryInput {
-  "Unix time in seconds since epoch. It can be any time betwee start and end of a known flight. If time = 0, get the live track if there is any flight ongoing"
-  time: Int!
 }
 
 type Trajectory {

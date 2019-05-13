@@ -1,65 +1,106 @@
 import * as React from "react";
 import Chart from "react-apexcharts";
+import moment from "moment";
+import { WithTheme, withTheme } from "react-jss";
 
 import Card from "../shared/card/Card";
+import { GetFlightInformation } from "../data/generated-types";
+import Spinner from "../shared/Spinner";
+import CardHeader from "../shared/card/CardHeader";
+import { ITheme } from "../styles/theme";
 
-export interface IFlightInformationCardProps {
-  className?: string;
+export interface IFlightInformationCardProps extends WithTheme<ITheme> {
+  flight: GetFlightInformation.Flight;
+  loading?: boolean;
 }
 
-const FlightInformationCard: React.FunctionComponent<
-  IFlightInformationCardProps
-> = ({ className }) => {
-  const state = {
-    options: {
-      chart: {
-        toolbar: {
-          show: false,
-          autoSelected: "selection"
+const FlightInformationCard: React.FC<IFlightInformationCardProps> = ({
+  flight,
+  loading,
+  theme
+}) => {
+  const chart = React.useMemo(() => {
+    if (!flight || !flight.trajectory) {
+      return null;
+    }
+    return {
+      options: {
+        chart: {
+          toolbar: {
+            show: false,
+            autoSelected: "selection"
+          }
+        },
+        dataLabels: {
+          enabled: false
+        },
+        stroke: {
+          curve: "smooth"
+        },
+        xaxis: {
+          type: "datetime",
+          categories: flight.trajectory.paths.map(d =>
+            moment.unix(d.time).toISOString()
+          ),
+          labels: {
+            style: {
+              colors: theme.colors.text
+            }
+          }
+        },
+        yaxis: {
+          title: {
+            text: "Altitude",
+            style: {
+              color: theme.colors.text
+            }
+          },
+          labels: {
+            style: {
+              color: theme.colors.text
+            }
+          }
+        },
+        tooltip: {
+          theme: "dark",
+          x: {
+            format: "HH:mm:ss"
+          }
+        },
+        grid: {
+          borderColor: theme.colors.gray[2]
         }
       },
-      dataLabels: {
-        enabled: false
-      },
-      stroke: {
-        curve: "smooth"
-      },
-      xaxis: {
-        type: "datetime",
-        categories: [
-          "2018-09-19T00:00:00",
-          "2018-09-19T01:30:00",
-          "2018-09-19T02:30:00",
-          "2018-09-19T03:30:00",
-          "2018-09-19T04:30:00",
-          "2018-09-19T05:30:00",
-          "2018-09-19T06:30:00"
-        ]
-      },
-      tooltip: {
-        x: {
-          format: "dd/MM/yy HH:mm"
+      series: [
+        {
+          name: "Altitude",
+          data: flight.trajectory.paths.map(d => d.altitude.barometric)
         }
-      }
-    },
-    series: [
-      {
-        name: "series1",
-        data: [31, 40, 28, 51, 42, 109, 100]
-      }
-    ]
-  };
+      ]
+    };
+  }, [flight, loading]);
+
   return (
-    <Card title="Flight SAS1933" className={className}>
-      <Chart
-        options={state.options}
-        series={state.series}
-        type="area"
-        width="100%"
-        height="100%"
-      />
+    <Card>
+      {loading && <Spinner />}
+      {!loading && (
+        <React.Fragment>
+          <CardHeader title={flight.callsign} />
+          {chart && (
+            <div style={{ height: 150 }}>
+              <Chart
+                options={chart.options}
+                series={chart.series}
+                type="area"
+                width="100%"
+                height="100%"
+              />
+            </div>
+          )}
+        </React.Fragment>
+      )}
     </Card>
   );
 };
 
-export default FlightInformationCard;
+export default withTheme(FlightInformationCard);

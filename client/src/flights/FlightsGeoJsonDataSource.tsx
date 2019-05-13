@@ -9,7 +9,8 @@ interface IFlightsGeoJsonDataSourceProps {
 
 const FlightsGeoJsonDataSource: React.FC<IFlightsGeoJsonDataSourceProps> = ({
   id,
-  bounds
+  bounds,
+  children
 }) => {
   return (
     <GetFlights.Component
@@ -24,14 +25,12 @@ const FlightsGeoJsonDataSource: React.FC<IFlightsGeoJsonDataSourceProps> = ({
       notifyOnNetworkStatusChange={true}
       pollInterval={10000}
     >
-      {({ data, loading }) => {
+      {({ data }) => {
         const featureCollection = convert(data.flights);
         return (
-          <GeoJsonDataSource
-            id={id}
-            data={featureCollection}
-            loading={loading}
-          />
+          <GeoJsonDataSource id={id} data={featureCollection}>
+            {children}
+          </GeoJsonDataSource>
         );
       }}
     </GetFlights.Component>

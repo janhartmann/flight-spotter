@@ -27,7 +27,7 @@ const CardHeader: React.FC<ICardHeaderProps> = ({
     >
       {(title || description) && (
         <div className={classes.headerTitle}>
-          {title}
+          {title && <span className={classes.title}>{title}</span>}
           {description && (
             <span className={classes.description}>{description}</span>
           )}
@@ -45,6 +45,9 @@ const styles: StyleCreator = (theme: ITheme) => ({
   },
   headerTitle: {
     flex: 1
+  },
+  title: {
+    fontWeight: "bold"
   },
   description: {
     display: "block",

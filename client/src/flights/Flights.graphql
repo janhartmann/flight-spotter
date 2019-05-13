@@ -2,11 +2,11 @@ query GetFlights($input: FlightsInput!) {
   flights(input: $input) {
     id
     callsign
+    timePosition
     coordinates {
       longitude
       latitude
     }
-    grounded
     direction
   }
 }
@@ -18,6 +18,50 @@ query GetFlightPopup($input: FlightInput!) {
     coordinates {
       longitude
       latitude
+    }
+  }
+}
+
+query GetFlightTrajectory($input: FlightInput!) {
+  flight(input: $input) {
+    id
+    trajectory {
+      startTime
+      endTime
+      paths {
+        coordinates {
+          latitude
+          longitude
+        }
+      }
+    }
+  }
+}
+
+query GetFlightInformation($input: FlightInput!) {
+  flight(input: $input) {
+    id
+    callsign
+    originCountry
+    timePosition
+    lastContact
+    velocity
+    squawk
+    trajectory {
+      startTime
+      endTime
+      paths {
+        time
+        direction
+        grounded
+        altitude {
+          barometric
+        }
+        coordinates {
+          latitude
+          longitude
+        }
+      }
     }
   }
 }

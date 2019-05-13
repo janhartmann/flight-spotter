@@ -7,7 +7,9 @@ import FlightLayer from "./flights/FlightLayer";
 import FlightsGeoJsonDataSource from "./flights/FlightsGeoJsonDataSource";
 import FlightPopup from "./flights/FlightPopup";
 import { ITheme } from "./styles/theme";
-import FlightInformationCard from "./flights/FlightInformationCard";
+import FlightInformationCardContainer from "./flights/FlightInformationCardContainer";
+import FlightTrajectoryGeoJsonDataSource from "./flights/FlightTrajectoryGeoJsonDataSource";
+import FLightTrajectoryLayer from "./flights/FLightTrajectoryLayer";
 
 const App: React.FC<StyledComponentProps> = ({ classes }) => {
   const [hoveredFlight, setHoveredFlight] = React.useState<string>(null);
@@ -65,19 +67,34 @@ const App: React.FC<StyledComponentProps> = ({ classes }) => {
       >
         {view.bounds && (
           <React.Fragment>
-            <FlightsGeoJsonDataSource id="flights" bounds={view.bounds} />
-            <FlightLayer
-              id="flights"
-              source="flights"
-              onMouseEnter={handleFlightMouseEnter}
-              onMouseLeave={handleFlightMouseOff}
-              onClick={handleFlightClick}
-            />
+            <FlightsGeoJsonDataSource id="flights" bounds={view.bounds}>
+              <FlightLayer
+                id="flights"
+                source="flights"
+                onMouseEnter={handleFlightMouseEnter}
+                onMouseLeave={handleFlightMouseOff}
+                onClick={handleFlightClick}
+              />
+            </FlightsGeoJsonDataSource>
+
             {(hoveredFlight || selectedFlight) && (
               <FlightPopup id={hoveredFlight || selectedFlight} />
             )}
             {selectedFlight && (
-              <FlightInformationCard className={classes.information} />
+              <React.Fragment>
+                <FlightTrajectoryGeoJsonDataSource
+                  source="flight-trajectory"
+                  id={selectedFlight}
+                >
+                  <FLightTrajectoryLayer
+                    id="flight-trajectory-path"
+                    source="flight-trajectory"
+                  />
+                </FlightTrajectoryGeoJsonDataSource>
+                <div className={classes.information}>
+                  <FlightInformationCardContainer id={selectedFlight} />
+                </div>
+              </React.Fragment>
             )}
           </React.Fragment>
         )}
@@ -99,8 +116,7 @@ const styles: StyleCreator = (theme: ITheme) => ({
     bottom: 40,
     left: 40,
     width: "calc(100% - 80px)",
-    zIndex: 10,
-    height: 250
+    zIndex: 10
   }
 });
 

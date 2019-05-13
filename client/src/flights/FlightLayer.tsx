@@ -65,6 +65,10 @@ const FlightLayer: React.FC<IFightLayerProps> = ({
         onClick(e);
       });
     }
+
+    return () => {
+      map.removeLayer(id);
+    };
   }, []);
 
   return null;

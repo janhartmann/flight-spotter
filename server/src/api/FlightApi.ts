@@ -50,10 +50,7 @@ export interface IOpenSkyApiTrajectoryPathResponse {
 export interface IFlightApi {
   getFlights(bounds: number[][]): Promise<IOpenSkyApiStateResponse[]>;
   getFlight(icao24: string): Promise<IOpenSkyApiStateResponse>;
-  getTrajectory(
-    icao24: string,
-    time: number
-  ): Promise<IOpenSkyApiTrajectoryResponse>;
+  getTrajectory(icao24: string): Promise<IOpenSkyApiTrajectoryResponse>;
 }
 
 export default class FlightApi extends RESTDataSource<IContext>
@@ -93,12 +90,11 @@ export default class FlightApi extends RESTDataSource<IContext>
   }
 
   public async getTrajectory(
-    icao24: string,
-    time: number
+    icao24: string
   ): Promise<IOpenSkyApiTrajectoryResponse> {
     try {
       return await this.get<IOpenSkyApiTrajectoryResponse>(
-        `tracks/all?icao24=${icao24}&time=${time}`
+        `tracks/?icao24=${icao24}`
       );
     } catch {
       return null;
