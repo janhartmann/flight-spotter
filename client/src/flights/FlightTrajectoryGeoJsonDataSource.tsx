@@ -33,22 +33,70 @@ const FlightTrajectoryGeoJsonDataSource: React.FC<
 
 const convert = (
   flight: GetFlightTrajectory.Flight
-): GeoJSON.Feature<GeoJSON.LineString> => {
+): GeoJSON.FeatureCollection<GeoJSON.LineString> => {
+  const features = flight
+    ? [
+        {
+          type: "Feature",
+          properties: {
+            type: "trajectory"
+          },
+          geometry: {
+            type: "LineString",
+            coordinates: flight.trajectory
+              ? [
+                  ...flight.trajectory.paths.map(path => [
+                    path.coordinates.longitude,
+                    path.coordinates.latitude
+                  ])
+                ]
+              : []
+          }
+        },
+        {
+          type: "Feature",
+          properties: {
+            type: "departure"
+          },
+          geometry: {
+            type: "LineString",
+            coordinates:
+              flight.route && flight.route.departure
+                ? [
+                    [
+                      flight.route.departure.coordinates.longitude,
+                      flight.route.departure.coordinates.latitude
+                    ],
+                    [flight.coordinates.longitude, flight.coordinates.latitude]
+                  ]
+                : []
+          }
+        },
+        {
+          type: "Feature",
+          properties: {
+            type: "arrival"
+          },
+          geometry: {
+            type: "LineString",
+            coordinates:
+              flight.route && flight.route.arrival
+                ? [
+                    [flight.coordinates.longitude, flight.coordinates.latitude],
+                    [
+                      flight.route.arrival.coordinates.longitude,
+                      flight.route.arrival.coordinates.latitude
+                    ]
+                  ]
+                : []
+          }
+        }
+      ]
+    : [];
+
   return {
-    type: "Feature",
-    properties: {},
-    geometry: {
-      type: "LineString",
-      coordinates:
-        flight && flight.trajectory
-          ? [
-              ...flight.trajectory.paths.map(path => [
-                path.coordinates.longitude,
-                path.coordinates.latitude
-              ])
-            ]
-          : []
-    }
+    type: "FeatureCollection",
+    features: [].concat(features)
   };
 };
 

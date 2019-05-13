@@ -25,6 +25,10 @@ query GetFlightPopup($input: FlightInput!) {
 query GetFlightTrajectory($input: FlightInput!) {
   flight(input: $input) {
     id
+    coordinates {
+      longitude
+      latitude
+    }
     trajectory {
       startTime
       endTime
@@ -32,6 +36,26 @@ query GetFlightTrajectory($input: FlightInput!) {
         coordinates {
           latitude
           longitude
+        }
+      }
+    }
+    route {
+      departure {
+        id
+        iata
+        name
+        coordinates {
+          longitude
+          latitude
+        }
+      }
+      arrival {
+        id
+        iata
+        name
+        coordinates {
+          longitude
+          latitude
         }
       }
     }

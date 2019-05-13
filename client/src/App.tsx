@@ -67,15 +67,6 @@ const App: React.FC<StyledComponentProps> = ({ classes }) => {
       >
         {view.bounds && (
           <React.Fragment>
-            <FlightsGeoJsonDataSource id="flights" bounds={view.bounds}>
-              <FlightLayer
-                id="flights"
-                source="flights"
-                onMouseEnter={handleFlightMouseEnter}
-                onMouseLeave={handleFlightMouseOff}
-                onClick={handleFlightClick}
-              />
-            </FlightsGeoJsonDataSource>
             {(hoveredFlight || selectedFlight) && (
               <FlightPopup id={hoveredFlight || selectedFlight} />
             )}
@@ -85,16 +76,21 @@ const App: React.FC<StyledComponentProps> = ({ classes }) => {
                   source="flight-trajectory"
                   id={selectedFlight}
                 >
-                  <FLightTrajectoryLayer
-                    id="flight-trajectory-path"
-                    source="flight-trajectory"
-                  />
+                  <FLightTrajectoryLayer source="flight-trajectory" />
                 </FlightTrajectoryGeoJsonDataSource>
                 <div className={classes.information}>
                   <FlightInformationCardContainer id={selectedFlight} />
                 </div>
               </React.Fragment>
             )}
+            <FlightsGeoJsonDataSource id="flights" bounds={view.bounds}>
+              <FlightLayer
+                source="flights"
+                onMouseEnter={handleFlightMouseEnter}
+                onMouseLeave={handleFlightMouseOff}
+                onClick={handleFlightClick}
+              />
+            </FlightsGeoJsonDataSource>
           </React.Fragment>
         )}
       </MapBox>

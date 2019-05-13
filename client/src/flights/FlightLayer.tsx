@@ -5,7 +5,6 @@ import { MapContext } from "../map/MapContext";
 import { ITheme } from "../styles/theme";
 
 export interface IFightLayerProps extends WithTheme<ITheme> {
-  id: string;
   source: string;
   onClick?: (
     e: mapboxgl.MapMouseEvent & {
@@ -26,17 +25,17 @@ export interface IFightLayerProps extends WithTheme<ITheme> {
 
 const FlightLayer: React.FC<IFightLayerProps> = ({
   theme,
-  id,
   source,
   onClick,
   onMouseEnter,
   onMouseLeave
 }) => {
+  const layerId = "flight-symbols";
   const map = React.useContext(MapContext);
 
   React.useEffect(() => {
     map.addLayer({
-      id,
+      id: layerId,
       source,
       type: "symbol",
       layout: {
@@ -47,27 +46,27 @@ const FlightLayer: React.FC<IFightLayerProps> = ({
     });
 
     if (onMouseEnter) {
-      map.on("mouseenter", id, e => {
+      map.on("mouseenter", layerId, e => {
         map.getCanvas().style.cursor = "pointer";
         onMouseEnter(e);
       });
     }
 
     if (onMouseLeave) {
-      map.on("mouseleave", id, e => {
+      map.on("mouseleave", layerId, e => {
         map.getCanvas().style.cursor = "";
         onMouseLeave(e);
       });
     }
 
     if (onClick) {
-      map.on("click", id, e => {
+      map.on("click", layerId, e => {
         onClick(e);
       });
     }
 
     return () => {
-      map.removeLayer(id);
+      map.removeLayer(layerId);
     };
   }, []);
 
