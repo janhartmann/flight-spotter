@@ -1,7 +1,7 @@
 import { TrajectoryResolvers, TrajectoryPath } from "./generated-types";
 import { IOpenSkyApiTrajectoryPathResponse } from "../api/OpenSkyNetworkApi";
 
-export const flightTrajectoryResolver: TrajectoryResolvers = {
+export const trajectoryResolver: TrajectoryResolvers = {
   startTime: parent => {
     return parent.startTime;
   },

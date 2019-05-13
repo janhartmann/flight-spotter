@@ -1,6 +1,6 @@
 import { RouteResolvers } from "./generated-types";
 
-export const flightRouteResolver: RouteResolvers = {
+export const routeResolver: RouteResolvers = {
   departure: async (parent, args, context) => {
     return context.dataSources.flightApi.getAirport(parent.route[0]);
   },
