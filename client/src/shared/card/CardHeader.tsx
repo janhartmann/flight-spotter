@@ -37,8 +37,7 @@ const styles: StyleCreator = (theme: ITheme) => ({
   title: {
     display: "flex",
     fontWeight: "bold",
-    alignItems: "center",
-    textTransform: "uppercase"
+    alignItems: "center"
   }
 });
 

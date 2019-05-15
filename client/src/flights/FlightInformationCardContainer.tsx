@@ -13,7 +13,7 @@ const FlightInformationCardContainer: React.FC<
   return (
     <GetFlightInformation.Component
       variables={{ input: { id } }}
-      pollInterval={10000}
+      pollInterval={5000}
     >
       {({ data, loading }) => {
         return <FlightInformationCard flight={data.flight} loading={loading} />;

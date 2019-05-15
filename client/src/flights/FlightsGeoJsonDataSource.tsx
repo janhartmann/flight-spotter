@@ -1,5 +1,6 @@
 import * as React from "react";
 import injectSheet, { StyleCreator, StyledComponentProps } from "react-jss";
+import classNames from "classnames";
 
 import { GetFlights } from "../data/generated-types";
 import GeoJsonDataSource from "../map/GeoJsonDataSource";
@@ -27,17 +28,20 @@ const FlightsGeoJsonDataSource: React.FC<IFlightsGeoJsonDataSourceProps> = ({
         }
       }}
       notifyOnNetworkStatusChange={true}
-      pollInterval={10000}
+      pollInterval={5000}
     >
       {({ data, loading }) => {
         const featureCollection = convert(data.flights);
         return (
           <GeoJsonDataSource id={id} data={featureCollection}>
-            {loading && (
-              <div className={classes.spinner}>
-                <Spinner size="small" />
-              </div>
-            )}
+            <div
+              className={classNames({
+                [classes.spinner]: true,
+                [classes.loading]: loading
+              })}
+            >
+              <Spinner size="small" />
+            </div>
             {children}
           </GeoJsonDataSource>
         );
@@ -94,7 +98,12 @@ const styles: StyleCreator = () => ({
     alignItems: "center",
     justifyContent: "center",
     boxShadow: "0 0 0 2px rgba(0, 0, 0, 0.1)",
-    borderRadius: 4
+    borderRadius: 4,
+    opacity: 0,
+    transition: "all ease-in 0.2s"
+  },
+  loading: {
+    opacity: 1
   }
 });
 

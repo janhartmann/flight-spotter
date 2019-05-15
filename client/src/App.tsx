@@ -2,14 +2,17 @@ import * as React from "react";
 import injectSheet, { StyleCreator, StyledComponentProps } from "react-jss";
 import mapboxgl from "mapbox-gl";
 
+import { ITheme } from "./styles/theme";
+
 import MapBox, { IViewState } from "./map/MapBox";
 import FlightLayer from "./flights/FlightLayer";
 import FlightsGeoJsonDataSource from "./flights/FlightsGeoJsonDataSource";
 import FlightPopup from "./flights/FlightPopup";
-import { ITheme } from "./styles/theme";
 import FlightInformationCardContainer from "./flights/FlightInformationCardContainer";
 import FlightTrajectoryGeoJsonDataSource from "./flights/FlightTrajectoryGeoJsonDataSource";
-import FLightTrajectoryLayer from "./flights/FLightTrajectoryLayer";
+import FlightTrajectoryLayer from "./flights/FLightTrajectoryLayer";
+import AirportsGeoJsonDataSource from "./airports/AirportsGeoJsonDataSource";
+import AirportLayer from "./airports/AirportLayer";
 
 const App: React.FC<StyledComponentProps> = ({ classes }) => {
   const [hoveredFlight, setHoveredFlight] = React.useState<string>(null);
@@ -70,19 +73,9 @@ const App: React.FC<StyledComponentProps> = ({ classes }) => {
             {(hoveredFlight || selectedFlight) && (
               <FlightPopup id={hoveredFlight || selectedFlight} />
             )}
-            {selectedFlight && (
-              <React.Fragment>
-                <FlightTrajectoryGeoJsonDataSource
-                  source="flight-trajectory"
-                  id={selectedFlight}
-                >
-                  <FLightTrajectoryLayer source="flight-trajectory" />
-                </FlightTrajectoryGeoJsonDataSource>
-                <div className={classes.information}>
-                  <FlightInformationCardContainer id={selectedFlight} />
-                </div>
-              </React.Fragment>
-            )}
+            <AirportsGeoJsonDataSource id="airports" bounds={view.bounds}>
+              <AirportLayer source="airports" />
+            </AirportsGeoJsonDataSource>
             <FlightsGeoJsonDataSource id="flights" bounds={view.bounds}>
               <FlightLayer
                 source="flights"
@@ -91,9 +84,22 @@ const App: React.FC<StyledComponentProps> = ({ classes }) => {
                 onClick={handleFlightClick}
               />
             </FlightsGeoJsonDataSource>
+            {selectedFlight && (
+              <FlightTrajectoryGeoJsonDataSource
+                source="flight-trajectory"
+                id={selectedFlight}
+              >
+                <FlightTrajectoryLayer source="flight-trajectory" />
+              </FlightTrajectoryGeoJsonDataSource>
+            )}
           </React.Fragment>
         )}
       </MapBox>
+      {selectedFlight && (
+        <div className={classes.information}>
+          <FlightInformationCardContainer id={selectedFlight} />
+        </div>
+      )}
     </div>
   );
 };
@@ -101,6 +107,8 @@ const App: React.FC<StyledComponentProps> = ({ classes }) => {
 const styles: StyleCreator = (theme: ITheme) => ({
   root: {
     fontFamily: theme.fonts.primary,
+    fontSize: 12,
+    lineHeight: 1.5,
     color: theme.colors.text,
     width: "100%",
     height: "100%",
@@ -109,7 +117,7 @@ const styles: StyleCreator = (theme: ITheme) => ({
   information: {
     position: "absolute",
     bottom: 40,
-    left: 40,
+    left: 10,
     zIndex: 10
   }
 });

@@ -9,6 +9,7 @@ input AirportsInput {
   longitudeMin: Float!
   latitudeMax: Float!
   longitudeMax: Float!
+  size: AirportSize
 }
 
 type Airport {
@@ -16,4 +17,10 @@ type Airport {
   iata: String
   name: String!
   coordinates: Coordinates!
+}
+
+enum AirportSize {
+  LARGE_AIRPORT
+  MEDIUM_AIRPORT
+  SMALL_AIRPORT
 }

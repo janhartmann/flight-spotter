@@ -74,7 +74,10 @@ export interface IOpenSkyNetworkApi {
   getFlight(icao24: string): Promise<IOpenSkyApiStateResponse>;
   getTrajectory(icao24: string): Promise<IOpenSkyApiTrajectoryResponse>;
   getRoute(callsign: string): Promise<IOpenSkyApiRouteResponse>;
-  getAirports(bounds: number[][]): Promise<IOpenSkyApiAirportResponse[]>;
+  getAirports(
+    bounds: number[][],
+    size?: string
+  ): Promise<IOpenSkyApiAirportResponse[]>;
   getAirport(icao: string): Promise<IOpenSkyApiAirportResponse>;
 }
 
@@ -137,14 +140,17 @@ export default class OpenSkyNetworkApi extends RESTDataSource<IContext>
   }
 
   public async getAirports(
-    bounds: number[][]
+    bounds: number[][],
+    size?: string
   ): Promise<IOpenSkyApiAirportResponse[]> {
     try {
-      return await this.get<IOpenSkyApiAirportResponse[]>(
-        `airports/region?lamin=${bounds[0][0]}&lomin=${bounds[0][1]}&lamax=${
-          bounds[1][0]
-        }&lomax=${bounds[1][1]}`
-      );
+      let url = `airports/region?lamin=${bounds[0][0]}&lomin=${
+        bounds[0][1]
+      }&lamax=${bounds[1][0]}&lomax=${bounds[1][1]}`;
+      if (size) {
+        url += `&type=${size}`;
+      }
+      return await this.get<IOpenSkyApiAirportResponse[]>(url);
     } catch {
       return null;
     }

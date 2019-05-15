@@ -1,6 +1,7 @@
 import * as React from "react";
 import turfDistance from "@turf/distance";
 import injectSheet, { StyledComponentProps, StyleCreator } from "react-jss";
+import classNames from "classnames";
 
 import { GetFlightInformation } from "../data/generated-types";
 import FlightIcon from "../shared/FlightIcon";
@@ -8,11 +9,13 @@ import { ITheme } from "../styles/theme";
 
 export interface IFlightProgressProps extends StyledComponentProps {
   flight: GetFlightInformation.Flight;
+  className?: string;
 }
 
 const FlightProgress: React.FC<IFlightProgressProps> = ({
   classes,
-  flight
+  flight,
+  className
 }) => {
   if (!flight.route || !flight.route.departure || !flight.route.arrival) {
     return null;
@@ -48,7 +51,12 @@ const FlightProgress: React.FC<IFlightProgressProps> = ({
   }, [flight]);
 
   return (
-    <div className={classes.root}>
+    <div
+      className={classNames({
+        [classes.root]: true,
+        [className]: className
+      })}
+    >
       <div className={classes.airport}>{flight.route.departure.iata}</div>
       <div className={classes.timeline}>
         <div className={classes.progress} style={{ width: progress + "%" }}>
@@ -88,7 +96,7 @@ const styles: StyleCreator = (theme: ITheme) => ({
   now: {
     position: "absolute",
     top: -17,
-    marginLeft: -20
+    marginLeft: -20 // half the size of the icon to center position
   }
 });
 

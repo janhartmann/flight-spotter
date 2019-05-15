@@ -29,15 +29,17 @@ const FlightInformationCard: React.FC<IFlightInformationCardProps> = ({
           <CardHeader
             title={
               <React.Fragment>
-                <FlightIcon direction={flight.direction} size={20} />{" "}
+                <FlightIcon
+                  direction={flight.direction}
+                  size={20}
+                  className={classes.flightIcon}
+                />
                 {flight.callsign}
               </React.Fragment>
             }
           />
           {flight.route && (
-            <div className={classes.progress}>
-              <FlightProgress flight={flight} />
-            </div>
+            <FlightProgress flight={flight} className={classes.progress} />
           )}
           <dl className={classes.status}>
             <dt>Last Contact</dt>
@@ -77,6 +79,9 @@ const styles: StyleCreator = (theme: ITheme) => ({
   root: {
     width: 300
   },
+  flightIcon: {
+    marginRight: theme.layout.gutter / 2
+  },
   progress: {
     marginTop: theme.layout.gutter
   },
@@ -86,6 +91,7 @@ const styles: StyleCreator = (theme: ITheme) => ({
     margin: 0,
     marginTop: theme.layout.gutter,
     "& dt": {
+      color: theme.colors.lightGray[1],
       flex: "0 0 50%",
       marginTop: 4
     },

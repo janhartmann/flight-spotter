@@ -1,0 +1,11 @@
+query GetAirports($input: AirportsInput!) {
+  airports(input: $input) {
+    id
+    iata
+    name
+    coordinates {
+      longitude
+      latitude
+    }
+  }
+}
