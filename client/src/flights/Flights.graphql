@@ -42,8 +42,6 @@ query GetFlightTrajectory($input: FlightInput!) {
     route {
       departure {
         id
-        iata
-        name
         coordinates {
           longitude
           latitude
@@ -51,8 +49,6 @@ query GetFlightTrajectory($input: FlightInput!) {
       }
       arrival {
         id
-        iata
-        name
         coordinates {
           longitude
           latitude
@@ -70,7 +66,17 @@ query GetFlightInformation($input: FlightInput!) {
     timePosition
     lastContact
     velocity
+    direction
+    verticalRate
     squawk
+    altitude {
+      barometric
+      geometric
+    }
+    coordinates {
+      longitude
+      latitude
+    }
     trajectory {
       startTime
       endTime
@@ -84,6 +90,26 @@ query GetFlightInformation($input: FlightInput!) {
         coordinates {
           latitude
           longitude
+        }
+      }
+    }
+    route {
+      departure {
+        id
+        iata
+        name
+        coordinates {
+          longitude
+          latitude
+        }
+      }
+      arrival {
+        id
+        iata
+        name
+        coordinates {
+          longitude
+          latitude
         }
       }
     }

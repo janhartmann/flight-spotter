@@ -6,7 +6,6 @@ import { ITheme } from "../../styles/theme";
 
 export interface ICardHeaderProps extends StyledComponentProps {
   title?: string | React.ReactNode;
-  description?: string | React.ReactNode;
   className?: string;
   action?: React.ReactNode;
 }
@@ -14,7 +13,6 @@ export interface ICardHeaderProps extends StyledComponentProps {
 const CardHeader: React.FC<ICardHeaderProps> = ({
   classes,
   title,
-  description,
   action,
   className
 }) => {
@@ -25,14 +23,7 @@ const CardHeader: React.FC<ICardHeaderProps> = ({
         [className]: className
       })}
     >
-      {(title || description) && (
-        <div className={classes.headerTitle}>
-          {title && <span className={classes.title}>{title}</span>}
-          {description && (
-            <span className={classes.description}>{description}</span>
-          )}
-        </div>
-      )}
+      {title && <div className={classes.title}>{title}</div>}
       {action && <div className={classes.action}>{action}</div>}
     </div>
   );
@@ -43,17 +34,11 @@ const styles: StyleCreator = (theme: ITheme) => ({
     display: "flex",
     alignItems: "center"
   },
-  headerTitle: {
-    flex: 1
-  },
   title: {
-    fontWeight: "bold"
-  },
-  description: {
-    display: "block",
-    color: theme.colors.gray[3],
-    fontSize: 14,
-    marginTop: 5
+    display: "flex",
+    fontWeight: "bold",
+    alignItems: "center",
+    textTransform: "uppercase"
   }
 });
 

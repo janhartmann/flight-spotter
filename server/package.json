@@ -11,6 +11,7 @@
   "dependencies": {
     "apollo-datasource-rest": "^0.3.2",
     "apollo-server": "^2.4.8",
+    "dotenv": "^8.0.0",
     "graphql": "^14.2.1",
     "graphql-import": "^0.7.1",
     "graphql-iso-date": "^3.6.1",

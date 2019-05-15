@@ -110,7 +110,6 @@ const styles: StyleCreator = (theme: ITheme) => ({
     position: "absolute",
     bottom: 40,
     left: 40,
-    width: "calc(100% - 80px)",
     zIndex: 10
   }
 });

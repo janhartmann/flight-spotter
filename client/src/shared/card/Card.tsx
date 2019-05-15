@@ -7,7 +7,6 @@ import CardHeader from "./CardHeader";
 
 export interface ICardProps extends StyledComponentProps {
   title?: string | React.ReactNode;
-  description?: string | React.ReactNode;
   className?: string;
   action?: React.ReactNode;
 }
@@ -15,7 +14,6 @@ export interface ICardProps extends StyledComponentProps {
 const Card: React.FC<ICardProps> = ({
   classes,
   title,
-  description,
   children,
   className,
   action
@@ -27,9 +25,7 @@ const Card: React.FC<ICardProps> = ({
         [className]: className
       })}
     >
-      {(title || description || action) && (
-        <CardHeader title={title} description={description} action={action} />
-      )}
+      {(title || action) && <CardHeader title={title} action={action} />}
       {children && <div className={classes.content}>{children}</div>}
     </div>
   );

@@ -1,4 +1,4 @@
-import { RESTDataSource } from "apollo-datasource-rest";
+import { RESTDataSource, RequestOptions } from "apollo-datasource-rest";
 
 import { IContext } from "../context";
 
@@ -157,6 +157,18 @@ export default class OpenSkyNetworkApi extends RESTDataSource<IContext>
       );
     } catch {
       return null;
+    }
+  }
+
+  protected willSendRequest(request: RequestOptions) {
+    const { OPENSKY_API_USERNAME, OPENSKY_API_PASSWORD } = process.env;
+    if (OPENSKY_API_USERNAME && OPENSKY_API_PASSWORD) {
+      request.headers.set(
+        "Authorization",
+        `Basic ${Buffer.from(
+          OPENSKY_API_USERNAME + ":" + OPENSKY_API_PASSWORD
+        ).toString("base64")}`
+      );
     }
   }
 }

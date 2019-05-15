@@ -24,7 +24,7 @@ const FlightTrajectoryLayer: React.FC<IFlightTrajectoryLayerProps> = ({
         "line-cap": "round"
       },
       paint: {
-        "line-color": "#3DCC91",
+        "line-color": "#48AFF0",
         "line-width": 3
       },
       filter: ["==", "type", "trajectory"]
@@ -39,7 +39,7 @@ const FlightTrajectoryLayer: React.FC<IFlightTrajectoryLayerProps> = ({
         "line-cap": "round"
       },
       paint: {
-        "line-color": "#48AFF0",
+        "line-color": theme.colors.success[5],
         "line-width": 3
       },
       filter: ["==", "type", "departure"]
