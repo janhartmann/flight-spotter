@@ -1,5 +1,5 @@
 import * as React from "react";
-
+import turfGreatCircle from "@turf/great-circle";
 import { GetFlightTrajectory } from "../data/generated-types";
 import GeoJsonDataSource from "../map/GeoJsonDataSource";
 
@@ -72,25 +72,20 @@ const convert = (
                 : []
           }
         },
-        {
-          type: "Feature",
-          properties: {
-            type: "arrival"
-          },
-          geometry: {
-            type: "LineString",
-            coordinates:
-              flight.route && flight.route.arrival
-                ? [
-                    [flight.coordinates.longitude, flight.coordinates.latitude],
-                    [
-                      flight.route.arrival.coordinates.longitude,
-                      flight.route.arrival.coordinates.latitude
-                    ]
-                  ]
-                : []
-          }
-        }
+        flight.route && flight.route.arrival
+          ? turfGreatCircle(
+              [flight.coordinates.longitude, flight.coordinates.latitude],
+              [
+                flight.route.arrival.coordinates.longitude,
+                flight.route.arrival.coordinates.latitude
+              ],
+              {
+                properties: {
+                  type: "arrival"
+                }
+              }
+            )
+          : {}
       ]
     : [];
 

@@ -81,8 +81,8 @@ const styles: StyleCreator = (theme: ITheme) => ({
   },
   timeline: {
     flex: 1,
-    height: 5,
-    borderRadius: 20,
+    height: 6,
+    borderRadius: theme.layout.borderRadius,
     background: theme.colors.dark[5],
     position: "relative",
     marginLeft: theme.layout.gutter,
@@ -90,8 +90,8 @@ const styles: StyleCreator = (theme: ITheme) => ({
   },
   progress: {
     background: theme.colors.success[5],
-    height: 5,
-    borderRadius: 20
+    height: 6,
+    borderRadius: theme.layout.borderRadius
   },
   now: {
     position: "absolute",

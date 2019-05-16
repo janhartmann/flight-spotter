@@ -1,9 +1,9 @@
 import * as React from "react";
-import * as mapboxgl from "mapbox-gl";
+import mapboxgl from "mapbox-gl";
+import injectSheet, { StyleCreator, StyledComponentProps } from "react-jss";
 
 import { GetFlightPopup } from "../data/generated-types";
 import MapPopup from "../map/MapPopup";
-import injectSheet, { StyleCreator, StyledComponentProps } from "react-jss";
 
 export interface IFlightPopupProps extends StyledComponentProps {
   id: string;

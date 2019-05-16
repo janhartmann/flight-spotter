@@ -33,8 +33,13 @@ const AirportLayer: React.FC<IAirportLayerProps> = ({
       source,
       type: "circle",
       paint: {
-        "circle-radius": 3,
-        "circle-color": theme.colors.danger[5]
+        "circle-radius": {
+          base: 1.75,
+          stops: [[2, 2], [5, 4]]
+        },
+        "circle-color": theme.colors.danger[5],
+        "circle-stroke-width": 1,
+        "circle-stroke-color": theme.colors.lightGray[5]
       }
     });
 

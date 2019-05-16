@@ -15,7 +15,7 @@ const FlightTrajectoryLayer: React.FC<IFlightTrajectoryLayerProps> = ({
   const map = React.useContext(MapContext);
 
   React.useEffect(() => {
-    map.addLayer({
+    /*map.addLayer({
       id: "trajectory",
       source,
       type: "line",
@@ -43,7 +43,7 @@ const FlightTrajectoryLayer: React.FC<IFlightTrajectoryLayerProps> = ({
         "line-width": 3
       },
       filter: ["==", "type", "departure"]
-    });
+    });*/
 
     map.addLayer({
       id: "arrival",
