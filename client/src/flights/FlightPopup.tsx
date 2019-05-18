@@ -17,6 +17,7 @@ const FlightPopup: React.FC<IFlightPopupProps> = ({ classes, id }) => {
           id
         }
       }}
+      fetchPolicy="cache-only"
     >
       {({ data }) => {
         return (
