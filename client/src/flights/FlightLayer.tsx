@@ -26,16 +26,17 @@ export interface IFightLayerProps extends WithTheme<ITheme> {
 const FlightLayer: React.FC<IFightLayerProps> = ({
   theme,
   source,
+  children,
   onClick,
   onMouseEnter,
   onMouseLeave
 }) => {
-  const layerId = "flight-symbols";
+  const id = "flight-symbols";
   const map = React.useContext(MapContext);
 
   React.useEffect(() => {
     map.addLayer({
-      id: layerId,
+      id: id,
       source,
       type: "symbol",
       layout: {
@@ -46,31 +47,31 @@ const FlightLayer: React.FC<IFightLayerProps> = ({
     });
 
     if (onMouseEnter) {
-      map.on("mouseenter", layerId, e => {
+      map.on("mouseenter", id, e => {
         map.getCanvas().style.cursor = "pointer";
         onMouseEnter(e);
       });
     }
 
     if (onMouseLeave) {
-      map.on("mouseleave", layerId, e => {
+      map.on("mouseleave", id, e => {
         map.getCanvas().style.cursor = "";
         onMouseLeave(e);
       });
     }
 
     if (onClick) {
-      map.on("click", layerId, e => {
+      map.on("click", id, e => {
         onClick(e);
       });
     }
 
     return () => {
-      map.removeLayer(layerId);
+      map.removeLayer(id);
     };
   }, []);
 
-  return null;
+  return <React.Fragment>{children}</React.Fragment>;
 };
 
 export default withTheme(FlightLayer);

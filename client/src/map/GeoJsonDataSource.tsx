@@ -1,5 +1,5 @@
 import * as React from "react";
-import * as mapboxgl from "mapbox-gl";
+import mapboxgl from "mapbox-gl";
 
 import { MapContext } from "./MapContext";
 
@@ -35,7 +35,7 @@ const GeoJsonDataSource: React.FC<IGeoJsonDataSourceProps> = ({
     };
   }, []);
 
-  React.useEffect(() => {
+  React.useLayoutEffect(() => {
     const source = map.getSource(id) as mapboxgl.GeoJSONSource;
     if (source && map.isSourceLoaded(id)) {
       source.setData(data);

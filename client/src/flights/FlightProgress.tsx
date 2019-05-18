@@ -1,5 +1,5 @@
 import * as React from "react";
-import turfDistance from "@turf/distance";
+import * as turf from "@turf/turf";
 import injectSheet, { StyledComponentProps, StyleCreator } from "react-jss";
 import classNames from "classnames";
 
@@ -22,7 +22,7 @@ const FlightProgress: React.FC<IFlightProgressProps> = ({
   }
 
   const progress = React.useMemo(() => {
-    const total = turfDistance(
+    const total = turf.distance(
       [
         flight.route.departure.coordinates.longitude,
         flight.route.departure.coordinates.latitude
@@ -36,7 +36,7 @@ const FlightProgress: React.FC<IFlightProgressProps> = ({
       }
     );
 
-    const travelled = turfDistance(
+    const travelled = turf.distance(
       [
         flight.route.departure.coordinates.longitude,
         flight.route.departure.coordinates.latitude

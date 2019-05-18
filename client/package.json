@@ -32,8 +32,7 @@
     "webpack-dev-server": "^3.3.1"
   },
   "dependencies": {
-    "@turf/distance": "^6.0.1",
-    "@turf/great-circle": "^5.1.5",
+    "@turf/turf": "^5.1.6",
     "apexcharts": "^3.6.10",
     "apollo-cache-inmemory": "^1.5.1",
     "apollo-client": "^2.5.1",

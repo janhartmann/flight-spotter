@@ -1,22 +1,83 @@
 import * as React from "react";
 import injectSheet, { StyleCreator, StyledComponentProps } from "react-jss";
+import { withApollo } from "react-apollo";
 import classNames from "classnames";
 
-import { GetFlights } from "../data/generated-types";
-import GeoJsonDataSource from "../map/GeoJsonDataSource";
+import {
+  GetFlights,
+  GetFlightsQuery,
+  GetFlightsDocument
+} from "../data/generated-types";
 import Spinner from "../shared/Spinner";
+import { getFlightPathPrediction } from "./path-prediction";
+import ApolloClient from "apollo-client";
+import GeoJsonDataSource from "../map/GeoJsonDataSource";
 
-interface IFlightsGeoJsonDataSourceProps extends StyledComponentProps {
+export interface IFlightsGeoJsonDataSourceProps extends StyledComponentProps {
   id: string;
   bounds: mapboxgl.LngLatBounds;
+  client?: ApolloClient<any>;
 }
 
 const FlightsGeoJsonDataSource: React.FC<IFlightsGeoJsonDataSourceProps> = ({
   classes,
-  id,
   bounds,
-  children
+  id,
+  children,
+  client
 }) => {
+  const animation = React.useRef(0);
+
+  const handleOnComplete = (data: GetFlightsQuery) => {
+    const predictions: {
+      [index: string]: GeoJSON.Feature<GeoJSON.Point>[];
+    } = {};
+
+    const steps = 50;
+    const duration = 10;
+
+    data.flights.forEach(flight => {
+      predictions[flight.id] = getFlightPathPrediction(
+        [flight.coordinates.longitude, flight.coordinates.latitude],
+        flight.velocity,
+        duration,
+        flight.direction,
+        steps
+      );
+    });
+
+    if (animation.current) {
+      window.clearInterval(animation.current);
+    }
+
+    let counter = 0;
+    animation.current = window.setInterval(() => {
+      if (counter < steps) {
+        client.writeQuery({
+          query: GetFlightsDocument,
+          data: {
+            flights: data.flights.map(flight => {
+              if (predictions[flight.id]) {
+                return {
+                  ...flight,
+                  coordinates: {
+                    ...flight.coordinates,
+                    longitude:
+                      predictions[flight.id][counter].geometry.coordinates[0],
+                    latitude:
+                      predictions[flight.id][counter].geometry.coordinates[1]
+                  }
+                };
+              }
+              return flight;
+            })
+          }
+        });
+        counter++;
+      }
+    }, 1000 / duration);
+  };
+
   return (
     <GetFlights.Component
       variables={{
@@ -29,6 +90,7 @@ const FlightsGeoJsonDataSource: React.FC<IFlightsGeoJsonDataSourceProps> = ({
       }}
       notifyOnNetworkStatusChange={true}
       pollInterval={5000}
+      onCompleted={handleOnComplete}
     >
       {({ data, loading }) => {
         const featureCollection = convert(data.flights);
@@ -64,9 +126,11 @@ const convert = (
         .map(flight => {
           return {
             type: "Feature",
+            id: flight.id,
             properties: {
               id: flight.id,
-              direction: flight.direction
+              direction: flight.direction,
+              velocity: flight.velocity
             },
             geometry: {
               type: "Point",
@@ -107,4 +171,4 @@ const styles: StyleCreator = () => ({
   }
 });
 
-export default injectSheet(styles)(FlightsGeoJsonDataSource);
+export default injectSheet(styles)(withApollo(FlightsGeoJsonDataSource));

@@ -2,12 +2,12 @@ query GetFlights($input: FlightsInput!) {
   flights(input: $input) {
     id
     callsign
-    timePosition
     coordinates {
       longitude
       latitude
     }
     direction
+    velocity
   }
 }
 
