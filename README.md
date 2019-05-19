@@ -56,7 +56,7 @@ The flight data is coming from The OpenSky Network and itself has a few limitati
 
 There can be aircrafts which has just grounded but appears to be bypassing an airport, this can happend when we are predicting its flight path, but the aircraft landed on its path towards the airport.
 
-Some flights can have missing data, like route information or trajectories.
+Some flights can have missing data, like route information, trajectories and altitude data being wrong.
 
 ## FAQ
 
@@ -67,6 +67,8 @@ One of the "limitations" of The OpenSky Network API is that the flight data can 
 We are, however, able to predict where the aircraft is going by using its current position, velocity (m/s) and direction it is heading using the [Haversine formula](https://en.wikipedia.org/wiki/Haversine_formula).
 
 Thankfully, there exists a great geospatial analysis library [Turf.js](https://turfjs.org/) to help us with this calculation.
+
+Once we have the predicted next destination, we can create a line to the point from the current known position of the aircraft, split it into segments and animate it over a duration until we get the new position from the server.
 
 **Trajectory line to the arrival airport**
 
