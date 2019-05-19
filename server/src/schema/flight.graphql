@@ -28,8 +28,8 @@ type Flight {
   "Unix timestamp (seconds) for the last update in general. This field is updated for any new, valid message received from the transponder."
   lastContact: Int!
 
-  "WGS-84 longitude and latitude in decimal degrees. Can be null."
-  coordinates: Coordinates
+  "WGS-84 longitude and latitude in decimal degrees. Can be null. Predicting coordinates will take the last received timestamp and calculate a possible position based on the velocity and direction"
+  coordinates(predict: Boolean): Coordinates
 
   "Flight altitude. Can be null."
   altitude: Altitude

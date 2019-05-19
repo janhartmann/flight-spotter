@@ -26,15 +26,19 @@ const FlightsGeoJsonDataSource: React.FC<IFlightsGeoJsonDataSourceProps> = ({
   children,
   client
 }) => {
-  const animation = React.useRef(0);
+  const previousData = React.useRef<GetFlightsQuery>(null);
+  const interval = React.useRef(0);
 
   const handleOnComplete = (data: GetFlightsQuery) => {
+    if (JSON.stringify(data) === JSON.stringify(previousData.current)) {
+      return;
+    }
+
+    const steps = 50;
+    const duration = 10; // in seconds, matches the poll interval
     const predictions: {
       [index: string]: GeoJSON.Feature<GeoJSON.Point>[];
     } = {};
-
-    const steps = 50;
-    const duration = 10;
 
     data.flights.forEach(flight => {
       predictions[flight.id] = getFlightPathPrediction(
@@ -46,26 +50,28 @@ const FlightsGeoJsonDataSource: React.FC<IFlightsGeoJsonDataSourceProps> = ({
       );
     });
 
-    if (animation.current) {
-      window.clearInterval(animation.current);
+    if (interval.current) {
+      window.clearInterval(interval.current);
     }
 
     let counter = 0;
-    animation.current = window.setInterval(() => {
+    interval.current = window.setInterval(() => {
       if (counter < steps) {
         client.writeQuery({
           query: GetFlightsDocument,
+          variables: {
+            predict: true
+          },
           data: {
             flights: data.flights.map(flight => {
-              if (predictions[flight.id]) {
+              const step = predictions[flight.id];
+              if (step && step[counter]) {
                 return {
                   ...flight,
                   coordinates: {
                     ...flight.coordinates,
-                    longitude:
-                      predictions[flight.id][counter].geometry.coordinates[0],
-                    latitude:
-                      predictions[flight.id][counter].geometry.coordinates[1]
+                    longitude: step[counter].geometry.coordinates[0],
+                    latitude: step[counter].geometry.coordinates[1]
                   }
                 };
               }
@@ -73,9 +79,12 @@ const FlightsGeoJsonDataSource: React.FC<IFlightsGeoJsonDataSourceProps> = ({
             })
           }
         });
+
         counter++;
       }
     }, 1000 / duration);
+
+    previousData.current = data;
   };
 
   return (
@@ -88,7 +97,6 @@ const FlightsGeoJsonDataSource: React.FC<IFlightsGeoJsonDataSourceProps> = ({
           longitudeMax: bounds.getNorthEast().lng
         }
       }}
-      notifyOnNetworkStatusChange={true}
       pollInterval={5000}
       onCompleted={handleOnComplete}
     >

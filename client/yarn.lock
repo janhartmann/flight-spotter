@@ -447,7 +447,7 @@
     "@turf/helpers" "^5.1.5"
     "@turf/invariant" "^5.1.5"
 
-"@turf/distance@6.x", "@turf/distance@^6.0.1":
+"@turf/distance@6.x":
   version "6.0.1"
   resolved "https://registry.yarnpkg.com/@turf/distance/-/distance-6.0.1.tgz#0761f28784286e7865a427c4e7e3593569c2dea8"
   integrity sha512-q7t7rWIWfkg7MP1Vt4uLjSEhe5rPfCO2JjpKmk7JC+QZKEQkuvHEqy3ejW1iC7Kw5ZcZNR3qdMGGz+6HnVwqvg==
@@ -499,7 +499,7 @@
     "@turf/helpers" "^5.1.5"
     "@turf/meta" "^5.1.5"
 
-"@turf/great-circle@5.1.x", "@turf/great-circle@^5.1.5":
+"@turf/great-circle@5.1.x":
   version "5.1.5"
   resolved "https://registry.yarnpkg.com/@turf/great-circle/-/great-circle-5.1.5.tgz#debfb671ce475509cb637301c15fcfccfa359a93"
   integrity sha1-3r+2cc5HVQnLY3MBwV/PzPo1mpM=

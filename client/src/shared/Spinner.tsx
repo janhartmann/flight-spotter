@@ -7,7 +7,6 @@ import { ITheme } from "../styles/theme";
 export interface ISpinnerProps extends StyledComponentProps {
   className?: string;
   size?: Size;
-  color?: string;
 }
 
 const Spinner: React.FC<ISpinnerProps> = ({

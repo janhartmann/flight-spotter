@@ -2,7 +2,8 @@ query GetFlights($input: FlightsInput!) {
   flights(input: $input) {
     id
     callsign
-    coordinates {
+    timePosition
+    coordinates(predict: true) {
       longitude
       latitude
     }
@@ -15,7 +16,7 @@ query GetFlightPopup($input: FlightInput!) {
   flight(input: $input) {
     id
     callsign
-    coordinates {
+    coordinates(predict: true) {
       longitude
       latitude
     }
@@ -25,7 +26,7 @@ query GetFlightPopup($input: FlightInput!) {
 query GetFlightTrajectory($input: FlightInput!) {
   flight(input: $input) {
     id
-    coordinates {
+    coordinates(predict: true) {
       longitude
       latitude
     }
@@ -73,7 +74,7 @@ query GetFlightInformation($input: FlightInput!) {
       barometric
       geometric
     }
-    coordinates {
+    coordinates(predict: true) {
       longitude
       latitude
     }

@@ -28,21 +28,6 @@ const FlightTrajectoryLayer: React.FC<IFlightTrajectoryLayerProps> = ({
         "line-width": 3
       },
       filter: ["==", "type", "trajectory"]
-    });
-
-    map.addLayer({
-      id: "departure",
-      source,
-      type: "line",
-      layout: {
-        "line-join": "round",
-        "line-cap": "round"
-      },
-      paint: {
-        "line-color": theme.colors.success[5],
-        "line-width": 3
-      },
-      filter: ["==", "type", "departure"]
     });*/
 
     map.addLayer({
@@ -65,7 +50,7 @@ const FlightTrajectoryLayer: React.FC<IFlightTrajectoryLayerProps> = ({
     });
 
     return () => {
-      ["trajectory", "departure", "arrival"].forEach(layer => {
+      ["trajectory", "arrival"].forEach(layer => {
         if (map.getLayer(layer)) {
           map.removeLayer(layer);
         }

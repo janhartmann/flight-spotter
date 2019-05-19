@@ -1,3 +1,5 @@
+import * as turf from "@turf/turf";
+
 import { FlightResolvers, PositionSource } from "./generated-types";
 
 export const flightResolver: FlightResolvers = {
@@ -19,11 +21,32 @@ export const flightResolver: FlightResolvers = {
   lastContact: parent => {
     return parent[4];
   },
-  coordinates: parent => {
-    if (parent[5] && parent[6]) {
+  coordinates: (parent, args) => {
+    const lon = parent[5];
+    const lat = parent[6];
+    const now = Math.floor(Date.now() / 1000);
+    const timePosition = parent[3];
+    const velocity = parent[9];
+    const direction = parent[10];
+
+    if (lon && lat) {
+      if (args.predict && timePosition && now > timePosition) {
+        const nextPosition = turf.destination(
+          [lon, lat],
+          velocity * (now - timePosition),
+          direction,
+          {
+            units: "meters"
+          }
+        );
+        return {
+          longitude: nextPosition.geometry.coordinates[0],
+          latitude: nextPosition.geometry.coordinates[1]
+        };
+      }
       return {
-        longitude: parent[5],
-        latitude: parent[6]
+        longitude: lon,
+        latitude: lat
       };
     }
     return null;
