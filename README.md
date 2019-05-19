@@ -2,6 +2,8 @@
 
 This is an example on how to create a real time flight spotter using React TypeScript, GraphQL, MapBox and The OpenSky Network API for flight data.
 
+[[https://github.com/janhartmann/flight-spotter/blob/master/docs/screenshot.png|alt=Screenshot]]
+
 ## Highlights
 
 * The client is built using React (with hooks) and in TypeScript.
