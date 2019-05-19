@@ -22,7 +22,7 @@ const FlightInformationCard: React.FC<IFlightInformationCardProps> = ({
   loading
 }) => {
   return (
-    <Card>
+    <Card className={classes.card}>
       {loading && <Spinner className={classes.spinner} />}
       {!loading && (
         <div className={classes.root}>
@@ -84,6 +84,9 @@ const FlightInformationCard: React.FC<IFlightInformationCardProps> = ({
 };
 
 const styles: StyleCreator = (theme: ITheme) => ({
+  card: {
+    opacity: 0.95
+  },
   root: {
     width: 300
   },

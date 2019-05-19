@@ -1,4 +1,9 @@
 
+# Real Time Flight Spotter
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](https://opensource.org/licenses/MIT)
+[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
+
 This is an example (and hopefully a source of inspiration), on how to create a real time flight spotter using React, TypeScript, GraphQL, MapBox and The OpenSky Network API for live flight data.
 
 ![Screenshot](https://github.com/janhartmann/flight-spotter/blob/master/docs/screenshot.png)
@@ -81,7 +86,9 @@ When querying the server for data, we use the [GraphQL Code Generator](https://g
 
 This is done to avoid writing the same things which are already described by the GraphQL schema. When we change the schema or a client query and reboot the server, new types are automatically generated and can be referenced in the code.
 
-## License
+## Contributions
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+Have an idea, a bug fix or some comments? Open an issue and let's have a talk!
+
+
 
