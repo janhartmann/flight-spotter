@@ -57,34 +57,34 @@ const FlightsGeoJsonDataSource: React.FC<IFlightsGeoJsonDataSourceProps> = ({
     let counter = 0;
     interval.current = window.setInterval(() => {
       if (counter < steps) {
+        previousData.current = {
+          flights: data.flights.map(flight => {
+            const step = predictions[flight.id];
+            if (step && step[counter]) {
+              return {
+                ...flight,
+                coordinates: {
+                  ...flight.coordinates,
+                  longitude: step[counter].geometry.coordinates[0],
+                  latitude: step[counter].geometry.coordinates[1]
+                }
+              };
+            }
+            return flight;
+          })
+        };
+
         client.writeQuery({
           query: GetFlightsDocument,
           variables: {
             predict: true
           },
-          data: {
-            flights: data.flights.map(flight => {
-              const step = predictions[flight.id];
-              if (step && step[counter]) {
-                return {
-                  ...flight,
-                  coordinates: {
-                    ...flight.coordinates,
-                    longitude: step[counter].geometry.coordinates[0],
-                    latitude: step[counter].geometry.coordinates[1]
-                  }
-                };
-              }
-              return flight;
-            })
-          }
+          data: previousData.current
         });
 
         counter++;
       }
-    }, 1000 / duration);
-
-    previousData.current = data;
+    }, (1000 * duration) / steps);
   };
 
   return (
