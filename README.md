@@ -16,7 +16,7 @@ This is an example (and hopefully a source of inspiration), on how to create a r
 ## Prerequisite
 
 * You will need a MapBox access token in order to display the map. For development and own-use it is perfectly fine to use their free option.
-* (optional, but recommended) In order to have more recent flight data (~5 seconds), create a free account on https://opensky-network.org/. If you do not have an account the flight data will be aroudn ~10 seconds old.
+* (optional, but recommended) In order to have more recent flight data (~5 seconds), create a free account on [their website](https://opensky-network.org/). If you do not have an account the flight data will be around ~10 seconds old.
 
 Create an `.env` file in the root of the repository containing:
 
@@ -52,7 +52,7 @@ Based on The OpenSky Network REST endpoints, we can create the following schema 
 
 ## Limitations
 
-The flight data is coming from The OpenSky Network and itself has a few limitations, please see https://opensky-network.org/apidoc/rest.html#limitations for more information.
+The flight data is coming from The OpenSky Network and itself has a few limitations, please see [their page](https://opensky-network.org/apidoc/rest.html#limitations) for more information.
 
 There can be aircrafts which has just grounded but appears to be bypassing an airport, this can happend when we are predicting its flight path, but the aircraft landed on its path towards the airport.
 
@@ -64,7 +64,7 @@ Some flights can have missing data, like route information or trajectories.
 
 One of the "limitations" of The OpenSky Network API is that the flight data can be delayed for approximately 5-10 seconds, depending if the request is sent using an registered account.
 
-We are, however, able to predict where the aircraft is going by using its current position, velocity (m/s) and direction it is heading using the [Haversine formula](https://en.wikipedia.org/wiki/Haversine_formula)
+We are, however, able to predict where the aircraft is going by using its current position, velocity (m/s) and direction it is heading using the [Haversine formula](https://en.wikipedia.org/wiki/Haversine_formula).
 
 Thankfully, there exists a great geospatial analysis library [Turf.js](https://turfjs.org/) to help us with this calculation.
 
@@ -76,7 +76,9 @@ Again, we have [Turf.js](https://turfjs.org/) to help us with this calculation.
 
 **GraphQL schema and resolver code-generation**
 
-TODO
+When querying the server for data, we use the [GraphQL Code Generator](https://graphql-code-generator.com) to generate TypeScript typings from the server schema. Both for our resolver types, but also our client query types.
+
+This is done to avoid writing the same things which are already described by the GraphQL schema. When we change the schema or a client query and reboot the server, new types are automatically generated and can be referenced in the code.
 
 ## License
 
