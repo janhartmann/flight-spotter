@@ -26,7 +26,7 @@ const AirportsGeoJsonDataSource: React.FC<IAirportsGeoJsonDataSourceProps> = ({
       }}
     >
       {({ data }) => {
-        const featureCollection = convert(data.airports);
+        const featureCollection = convert(data && data.airports);
         return (
           <GeoJsonDataSource id={id} data={featureCollection}>
             {children}

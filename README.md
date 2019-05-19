@@ -1,4 +1,3 @@
-# Real Time Flight Spotter
 
 This is an example (and hopefully a source of inspiration), on how to create a real time flight spotter using React, TypeScript, GraphQL, MapBox and The OpenSky Network API for live flight data.
 
@@ -84,4 +83,5 @@ This is done to avoid writing the same things which are already described by the
 
 ## License
 
-MIT
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+

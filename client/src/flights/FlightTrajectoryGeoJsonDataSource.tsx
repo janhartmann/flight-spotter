@@ -20,7 +20,7 @@ const FlightTrajectoryGeoJsonDataSource: React.FC<
       }}
     >
       {({ data }) => {
-        const featureCollection = convert(data.flight);
+        const featureCollection = convert(data && data.flight);
         return (
           <GeoJsonDataSource id={source} data={featureCollection}>
             {children}

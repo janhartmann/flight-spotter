@@ -16,7 +16,12 @@ const FlightInformationCardContainer: React.FC<
       pollInterval={5000}
     >
       {({ data, loading }) => {
-        return <FlightInformationCard flight={data.flight} loading={loading} />;
+        return (
+          <FlightInformationCard
+            flight={data && data.flight}
+            loading={loading}
+          />
+        );
       }}
     </GetFlightInformation.Component>
   );

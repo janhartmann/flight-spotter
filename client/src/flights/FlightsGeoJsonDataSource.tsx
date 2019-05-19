@@ -104,7 +104,7 @@ const FlightsGeoJsonDataSource: React.FC<IFlightsGeoJsonDataSourceProps> = ({
       onCompleted={handleOnComplete}
     >
       {({ data, loading }) => {
-        const featureCollection = convert(data.flights);
+        const featureCollection = convert(data && data.flights);
         return (
           <GeoJsonDataSource id={id} data={featureCollection}>
             <div
