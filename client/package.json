@@ -5,8 +5,8 @@
   "private": true,
   "scripts": {
     "start": "webpack-dev-server --mode=development --watch",
-    "build": "webpack --mode=production",
-    "serve": "serve --listen 3000 ./dist"
+    "start:prod": "serve --listen 3000 ./dist",
+    "build": "webpack --mode=production"
   },
   "devDependencies": {
     "@types/classnames": "^2.2.7",
