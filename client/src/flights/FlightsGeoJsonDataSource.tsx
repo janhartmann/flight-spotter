@@ -91,10 +91,10 @@ const FlightsGeoJsonDataSource: React.FC<IFlightsGeoJsonDataSourceProps> = ({
     <GetFlights.Component
       variables={{
         input: {
-          latitudeMin: bounds.getSouthWest().lat,
-          longitudeMin: bounds.getSouthWest().lng,
-          latitudeMax: bounds.getNorthEast().lat,
-          longitudeMax: bounds.getNorthEast().lng
+          latitudeMin: parseFloat(bounds.getSouthWest().lat.toFixed(3)),
+          longitudeMin: parseFloat(bounds.getSouthWest().lng.toFixed(3)),
+          latitudeMax: parseFloat(bounds.getNorthEast().lat.toFixed(3)),
+          longitudeMax: parseFloat(bounds.getNorthEast().lng.toFixed(3))
         }
       }}
       pollInterval={5000}
