@@ -30,7 +30,6 @@ const FlightsGeoJsonDataSource: React.FC<IFlightsGeoJsonDataSourceProps> = ({
   const interval = React.useRef(0);
 
   const handleOnComplete = (data: GetFlightsQuery) => {
-    console.log(data.flights.length);
     if (
       JSON.stringify(data) === JSON.stringify(previousData.current) ||
       data.flights.length > 1000 // We wont animate paths for above 1000 flights

@@ -64,7 +64,7 @@ const App: React.FC<StyledComponentProps> = ({ classes }) => {
         withZoom={true}
         withFullscreen={false}
         withGeolocateControl={true}
-        accessToken="pk.eyJ1IjoiamFuaGFydG1hbm4iLCJhIjoiY2pwMTNreGczMzFzZDN2cGFxMWYwN2Q4MSJ9.k00uopdj4dH_lW0cgNC8Yg"
+        accessToken={process.env.MAPBOX_ACCESS_TOKEN}
         onChange={handleMapChange}
         onClick={handleMapClick}
       >
