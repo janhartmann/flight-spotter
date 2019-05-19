@@ -1,5 +1,6 @@
 @import url("normalize.css");
 @import url("https://fonts.googleapis.com/css?family=Open+Sans");
+@import url("../../node_modules/mapbox-gl/dist/mapbox-gl.css");
 
 * {
   box-sizing: border-box;
