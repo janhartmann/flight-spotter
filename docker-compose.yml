@@ -1,0 +1,12 @@
+version: "3"
+services:
+  server:
+    build: ./server
+    container_name: flight-spotter-server
+    ports:
+      - 5000:5000
+  client:
+    build: ./client
+    container_name: flight-spotter-client
+    ports:
+      - 3000:3000

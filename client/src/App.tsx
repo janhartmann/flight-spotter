@@ -10,7 +10,7 @@ import FlightsGeoJsonDataSource from "./flights/FlightsGeoJsonDataSource";
 import FlightPopup from "./flights/FlightPopup";
 import FlightInformationCardContainer from "./flights/FlightInformationCardContainer";
 import FlightTrajectoryGeoJsonDataSource from "./flights/FlightTrajectoryGeoJsonDataSource";
-import FlightTrajectoryLayer from "./flights/FLightTrajectoryLayer";
+import FlightTrajectoryLayer from "./flights/FlightTrajectoryLayer";
 import AirportsGeoJsonDataSource from "./airports/AirportsGeoJsonDataSource";
 import AirportLayer from "./airports/AirportLayer";
 

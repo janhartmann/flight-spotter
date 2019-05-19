@@ -5,7 +5,6 @@
   "private": true,
   "scripts": {
     "start": "webpack-dev-server --mode=development --watch",
-    "start:prod": "serve --listen 3000 ./dist",
     "build": "webpack --mode=production"
   },
   "devDependencies": {
@@ -41,6 +40,7 @@
     "apollo-link-http": "^1.5.14",
     "classnames": "^2.2.6",
     "graphql": "^14.3.0",
+    "graphql-tag": "^2.10.1",
     "mapbox-gl": "^0.54.0",
     "moment": "^2.24.0",
     "react": "^16.8.6",

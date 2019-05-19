@@ -5,16 +5,13 @@
   "scripts": {
     "install": "concurrently --prefix-colors magenta,blue -n server,client \"yarn server:install\" \"yarn client:install\"",
     "start": "gql-gen && concurrently --prefix-colors magenta,blue -n server,client \"yarn server:start\" \"yarn client:start\"",
-    "start:prod": "gql-gen && concurrently --prefix-colors magenta,blue -n server,client \"yarn server:start:prod\" \"yarn client:start:prod\"",
     "build": "gql-gen && concurrently --prefix-colors magenta,blue -n server,client \"yarn server:build\" \"yarn client:build\"",
     "server:install": "cd server && yarn install",
     "server:build": "cd server && yarn build",
     "server:start": "cd server && yarn start",
-    "server:start:prod": "cd server && yarn start:prod",
     "client:install": "cd client && yarn install",
     "client:build": "cd client && yarn build",
-    "client:start": "cd client && yarn start",
-    "client:start:prod": "cd client && yarn start:prod"
+    "client:start": "cd client && yarn start"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^1.2.0",
