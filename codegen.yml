@@ -20,10 +20,6 @@ generates:
       - typescript
       - typescript-resolvers
   client/src/data/generated-types.tsx:
-    config:
-      scalars:
-        Date: Date
-        DateTime: Date
     plugins:
       - typescript
       - typescript-operations

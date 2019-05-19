@@ -1,5 +1,5 @@
 {
-  "name": "flight-spotter-ui",
+  "name": "flight-spotter-client",
   "version": "1.0.0",
   "main": "./src/index.tsx",
   "private": true,

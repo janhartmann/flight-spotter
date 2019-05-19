@@ -1,5 +1,5 @@
 {
-  "name": "flight-spotter-api",
+  "name": "flight-spotter-server",
   "private": true,
   "version": "1.0.0",
   "scripts": {
@@ -15,7 +15,6 @@
     "dotenv": "^8.0.0",
     "graphql": "^14.3.0",
     "graphql-import": "^0.7.1",
-    "graphql-iso-date": "^3.6.1",
     "graphql-tools": "^4.0.4"
   },
   "devDependencies": {
