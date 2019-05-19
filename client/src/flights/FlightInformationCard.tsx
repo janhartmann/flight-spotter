@@ -50,10 +50,16 @@ const FlightInformationCard: React.FC<IFlightInformationCardProps> = ({
             <dd>
               {flight.velocity} m/s ({(flight.velocity * 3.6).toFixed(2)} km/h)
             </dd>
-            <dt>Barometric Altitude</dt>
-            <dd>{flight.altitude.barometric} m</dd>
             <dt>Geometric Altitude</dt>
-            <dd>{flight.altitude.geometric} m</dd>
+            <dd>
+              {parseFloat((flight.altitude.geometric / 0.3048).toFixed(2))} ft (
+              {flight.altitude.geometric} m)
+            </dd>
+            <dt>Barometric Altitude</dt>
+            <dd>
+              {parseFloat((flight.altitude.barometric / 0.3048).toFixed(2))} ft
+              ({flight.altitude.barometric} m)
+            </dd>
             <dt>Direction</dt>
             <dd>{flight.direction}°</dd>
             <dt>Vertical Rate</dt>
@@ -62,6 +68,8 @@ const FlightInformationCard: React.FC<IFlightInformationCardProps> = ({
             <dd>{flight.squawk}</dd>
             <dt>ICAO24</dt>
             <dd>{flight.id}</dd>
+            <dt>Position Source</dt>
+            <dd>{flight.positionSource}</dd>
           </dl>
           {flight.trajectory && (
             <div className={classes.altitude}>

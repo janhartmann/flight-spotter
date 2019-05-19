@@ -70,6 +70,7 @@ query GetFlightInformation($input: FlightInput!) {
     direction
     verticalRate
     squawk
+    positionSource
     altitude {
       barometric
       geometric
