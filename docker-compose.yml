@@ -1,0 +1,8 @@
+version: "3"
+services:
+  flight-spotter-server:
+    build: ./server
+    image: flight-spotter-server
+  flight-spotter-client:
+    build: ./client
+    image: flight-spotter-client
