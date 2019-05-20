@@ -38,7 +38,7 @@ const FlightsGeoJsonDataSource: React.FC<IFlightsGeoJsonDataSourceProps> = ({
     }
 
     const steps = 50;
-    const duration = 10; // in seconds, matches the poll interval
+    const duration = 10; // in seconds
     const predictions: {
       [index: string]: GeoJSON.Feature<GeoJSON.Point>[];
     } = {};
@@ -86,6 +86,8 @@ const FlightsGeoJsonDataSource: React.FC<IFlightsGeoJsonDataSourceProps> = ({
         });
 
         counter++;
+      } else {
+        window.clearInterval(interval.current);
       }
     }, (1000 * duration) / steps);
   };

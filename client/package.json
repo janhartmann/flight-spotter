@@ -1,8 +1,14 @@
 {
   "name": "flight-spotter-client",
   "version": "1.0.0",
-  "main": "./src/index.tsx",
   "private": true,
+  "license": "MIT",
+  "author": {
+    "name": "Jan Hartmann",
+    "email": "kontakt@janhartmann.dk",
+    "url": "https://janhartmann.dk"
+  },
+  "main": "./src/index.tsx",
   "scripts": {
     "start": "webpack-dev-server --mode=development --watch",
     "build": "webpack --mode=production"
@@ -21,7 +27,6 @@
     "html-webpack-plugin": "^3.2.0",
     "mini-css-extract-plugin": "^0.6.0",
     "prettier": "^1.17.1",
-    "serve": "^11.0.0",
     "terser-webpack-plugin": "^1.2.4",
     "tslint": "^5.16.0",
     "tslint-config-prettier": "^1.18.0",

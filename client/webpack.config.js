@@ -77,9 +77,7 @@ module.exports = {
       template: "./src/index.html",
       favicon: "./src/favicon.ico"
     }),
-    new Dotenv({
-      path: "../.env"
-    })
+    new Dotenv()
   ],
   resolve: {
     extensions: [".mjs", ".js", ".json", ".jsx", ".ts", ".tsx"]

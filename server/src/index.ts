@@ -1,8 +1,4 @@
-// tslint:disable-next-line: no-var-requires
-require("dotenv").config({
-  path: "../.env"
-});
-
+import "./env";
 import { startServer } from "./server";
 
 (async () => {

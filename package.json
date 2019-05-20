@@ -1,7 +1,13 @@
 {
   "name": "flight-spotter",
-  "private": true,
   "version": "1.0.0",
+  "private": true,
+  "license": "MIT",
+  "author": {
+    "name": "Jan Hartmann",
+    "email": "kontakt@janhartmann.dk",
+    "url": "https://janhartmann.dk"
+  },
   "scripts": {
     "install": "concurrently --prefix-colors magenta,blue -n server,client \"yarn server:install\" \"yarn client:install\"",
     "start": "gql-gen && concurrently --prefix-colors magenta,blue -n server,client \"yarn server:start\" \"yarn client:start\"",

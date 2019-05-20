@@ -1,7 +1,13 @@
 {
   "name": "flight-spotter-server",
-  "private": true,
   "version": "1.0.0",
+  "private": true,
+  "license": "MIT",
+  "author": {
+    "name": "Jan Hartmann",
+    "email": "kontakt@janhartmann.dk",
+    "url": "https://janhartmann.dk"
+  },
   "scripts": {
     "build": "tsc --noEmit",
     "start": "cross-env NODE_ENV=development npm-run-all build server:dev",
@@ -18,6 +24,7 @@
     "graphql-tools": "^4.0.4"
   },
   "devDependencies": {
+    "@types/dotenv": "^6.1.1",
     "@types/graphql": "^14.2.0",
     "cross-env": "^5.2.0",
     "nodemon": "^1.19.0",

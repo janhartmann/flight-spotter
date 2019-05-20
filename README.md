@@ -22,14 +22,6 @@ This is an example (and hopefully a source of inspiration), on how to create a r
 * You will need a MapBox access token in order to display the map. For development and own-use it is perfectly fine to use their free option.
 * (optional, but recommended) In order to have more recent flight data (~5 seconds), create a free account on [their website](https://opensky-network.org/). If you do not have an account the flight data will be around ~10 seconds old.
 
-Create an `.env` file in the root of the repository containing:
-
-```
-MAPBOX_ACCESS_TOKEN=yourtoken
-OPENSKY_API_USERNAME=yourusername
-OPENSKY_API_PASSWORD=yourpassword
-```
-
 ## Development
 
 Start by cloning the repository.
@@ -38,6 +30,19 @@ The repository is a mono-repository, meaning it consists of both a client and se
 
 ```
 yarn install
+```
+
+Now, create an `.env` file in the `./server` directory containing:
+
+```
+OPENSKY_API_USERNAME=<your-username>
+OPENSKY_API_PASSWORD=<your-password>
+```
+
+Then create another `.env` file in the `./client` directory containing:
+
+```
+MAPBOX_ACCESS_TOKEN=<your-token>
 ```
 
 To start the development server and client, run from the root of the repository:
