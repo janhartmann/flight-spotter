@@ -26,6 +26,11 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
 
 export const client = new ApolloClient({
   link: errorLink.concat(httpLink),
+  defaultOptions: {
+    watchQuery: {
+      errorPolicy: "all"
+    }
+  },
   cache: new InMemoryCache({
     fragmentMatcher: new IntrospectionFragmentMatcher({
       introspectionQueryResultData: introspectionResultData

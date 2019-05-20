@@ -20,6 +20,9 @@ const FlightPopup: React.FC<IFlightPopupProps> = ({ classes, id }) => {
       fetchPolicy="cache-only"
     >
       {({ data }) => {
+        if (!data || !data.flight) {
+          return null;
+        }
         return (
           <MapPopup
             center={

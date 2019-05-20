@@ -2,6 +2,7 @@ import * as React from "react";
 import injectSheet, { StyleCreator, StyledComponentProps } from "react-jss";
 import mapboxgl from "mapbox-gl";
 
+import GitHubLogo from "./assets/github-logo.svg";
 import { ITheme } from "./styles/theme";
 
 import MapBox, { IViewState } from "./map/MapBox";
@@ -100,6 +101,13 @@ const App: React.FC<StyledComponentProps> = ({ classes }) => {
           <FlightInformationCardContainer id={selectedFlight} />
         </div>
       )}
+      <a
+        href="https://github.com/janhartmann/flight-spotter"
+        target="_blank"
+        className={classes.github}
+      >
+        <img src={GitHubLogo} alt="Fork on GitHub" />
+      </a>
     </div>
   );
 };
@@ -118,7 +126,20 @@ const styles: StyleCreator = (theme: ITheme) => ({
     position: "absolute",
     bottom: 40,
     left: 10,
-    zIndex: 10
+    zIndex: 10,
+    width: "calc(100% - 20px)",
+    [theme.layout.breakpoints.medium]: {
+      width: "auto"
+    }
+  },
+  github: {
+    position: "absolute",
+    top: 10,
+    left: 10,
+    zIndex: 10,
+    "& > img": {
+      width: 20
+    }
   }
 });
 

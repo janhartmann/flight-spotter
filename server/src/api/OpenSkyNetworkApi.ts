@@ -94,88 +94,58 @@ export default class OpenSkyNetworkApi extends RESTDataSource<IContext>
   public async getFlights(
     bounds: number[][]
   ): Promise<IOpenSkyApiStateResponse[]> {
-    try {
-      const result = await this.get<IOpenSkyApiResponse>(
-        `states/all?lamin=${bounds[0][0]}&lomin=${bounds[0][1]}&lamax=${
-          bounds[1][0]
-        }&lomax=${bounds[1][1]}`
-      );
+    const result = await this.get<IOpenSkyApiResponse>(
+      `states/all?lamin=${bounds[0][0]}&lomin=${bounds[0][1]}&lamax=${
+        bounds[1][0]
+      }&lomax=${bounds[1][1]}`
+    );
 
-      if (!result || !result.states) {
-        return [];
-      }
-
-      return result.states.map(
-        state => (state as unknown) as IOpenSkyApiStateResponse
-      );
-    } catch (err) {
+    if (!result || !result.states) {
       return [];
     }
+
+    return result.states.map(
+      state => (state as unknown) as IOpenSkyApiStateResponse
+    );
   }
 
   public async getFlight(icao24: string): Promise<IOpenSkyApiStateResponse> {
-    try {
-      const result = await this.get<IOpenSkyApiResponse>(
-        `states/all?icao24=${icao24}`
-      );
+    const result = await this.get<IOpenSkyApiResponse>(
+      `states/all?icao24=${icao24}`
+    );
 
-      if (!result || !result.states) {
-        return null;
-      }
-
-      return (result.states[0] as unknown) as IOpenSkyApiStateResponse;
-    } catch (err) {
+    if (!result || !result.states) {
       return null;
     }
+
+    return (result.states[0] as unknown) as IOpenSkyApiStateResponse;
   }
 
   public async getTrajectory(
     icao24: string
   ): Promise<IOpenSkyApiTrajectoryResponse> {
-    try {
-      return await this.get<IOpenSkyApiTrajectoryResponse>(
-        `tracks/?icao24=${icao24}`
-      );
-    } catch {
-      return null;
-    }
+    return this.get<IOpenSkyApiTrajectoryResponse>(`tracks/?icao24=${icao24}`);
   }
 
   public async getRoute(callsign: string): Promise<IOpenSkyApiRouteResponse> {
-    try {
-      return await this.get<IOpenSkyApiRouteResponse>(
-        `routes/?callsign=${callsign}`
-      );
-    } catch {
-      return null;
-    }
+    return this.get<IOpenSkyApiRouteResponse>(`routes/?callsign=${callsign}`);
   }
 
   public async getAirports(
     bounds: number[][],
     size?: string
   ): Promise<IOpenSkyApiAirportResponse[]> {
-    try {
-      let url = `airports/region?lamin=${bounds[0][0]}&lomin=${
-        bounds[0][1]
-      }&lamax=${bounds[1][0]}&lomax=${bounds[1][1]}`;
-      if (size) {
-        url += `&type=${size}`;
-      }
-      return await this.get<IOpenSkyApiAirportResponse[]>(url);
-    } catch {
-      return null;
+    let url = `airports/region?lamin=${bounds[0][0]}&lomin=${
+      bounds[0][1]
+    }&lamax=${bounds[1][0]}&lomax=${bounds[1][1]}`;
+    if (size) {
+      url += `&type=${size}`;
     }
+    return this.get<IOpenSkyApiAirportResponse[]>(url);
   }
 
   public async getAirport(icao: string): Promise<IOpenSkyApiAirportResponse> {
-    try {
-      return await this.get<IOpenSkyApiAirportResponse>(
-        `airports/?icao=${icao}`
-      );
-    } catch {
-      return null;
-    }
+    return this.get<IOpenSkyApiAirportResponse>(`airports/?icao=${icao}`);
   }
 
   protected willSendRequest(request: RequestOptions) {
@@ -193,15 +163,19 @@ export default class OpenSkyNetworkApi extends RESTDataSource<IContext>
   protected didEncounterError(error: Error, request: Request) {
     // tslint:disable-next-line: no-console
     console.error(
-      JSON.stringify({
-        url: request.url,
-        method: request.method,
-        body: request.bodyUsed,
-        headers: request.headers,
-        error: {
-          ...error
-        }
-      })
+      JSON.stringify(
+        {
+          url: request.url,
+          method: request.method,
+          body: request.bodyUsed,
+          headers: request.headers,
+          error: {
+            ...error
+          }
+        },
+        null,
+        2
+      )
     );
   }
 }

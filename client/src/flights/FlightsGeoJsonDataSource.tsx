@@ -1,6 +1,6 @@
 import * as React from "react";
 import injectSheet, { StyleCreator, StyledComponentProps } from "react-jss";
-import { withApollo } from "react-apollo";
+import { withApollo, WithApolloClient } from "react-apollo";
 import classNames from "classnames";
 
 import {
@@ -10,13 +10,13 @@ import {
 } from "../data/generated-types";
 import Spinner from "../shared/Spinner";
 import { getFlightPathPrediction } from "./path-prediction";
-import ApolloClient from "apollo-client";
 import GeoJsonDataSource from "../map/GeoJsonDataSource";
 
-export interface IFlightsGeoJsonDataSourceProps extends StyledComponentProps {
+export interface IFlightsGeoJsonDataSourceProps
+  extends StyledComponentProps,
+    Partial<WithApolloClient<any>> {
   id: string;
   bounds: mapboxgl.LngLatBounds;
-  client?: ApolloClient<any>;
 }
 
 const FlightsGeoJsonDataSource: React.FC<IFlightsGeoJsonDataSourceProps> = ({
@@ -166,8 +166,8 @@ const styles: StyleCreator = () => ({
   spinner: {
     position: "absolute",
     zIndex: 10,
-    top: 10,
-    left: 10,
+    top: 150,
+    right: 10,
     background: "#fff",
     width: 30,
     height: 30,

@@ -1,8 +1,9 @@
 import * as React from "react";
 import injectSheet, { StyledComponentProps, StyleCreator } from "react-jss";
-import * as mapboxgl from "mapbox-gl";
+import mapboxgl from "mapbox-gl";
 
 import { MapContext } from "./MapContext";
+import { debounce } from "./debounce";
 
 export interface IMapBoxProps extends StyledComponentProps {
   accessToken: string;
@@ -117,7 +118,8 @@ const MapBox: React.FC<IMapBoxProps> = ({
 
   const handleChange = () => {
     if (onChange) {
-      onChange({
+      const debouncedOnChange = debounce(onChange, 500);
+      debouncedOnChange({
         zoom: mapInstance.current.getZoom(),
         center: mapInstance.current.getCenter(),
         bounds: mapInstance.current.getBounds()

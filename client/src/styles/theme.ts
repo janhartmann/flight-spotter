@@ -18,6 +18,11 @@ export interface ITheme {
     borderRadius: number;
     gutter: number;
     boxShadow: string;
+    breakpoints: {
+      small: string;
+      medium: string;
+      large: string;
+    };
   };
   fonts: {
     primary: string;
@@ -76,7 +81,12 @@ export const DEFAULT_THEME: ITheme = {
   layout: {
     borderRadius: 4,
     gutter: 15,
-    boxShadow: "0 0 0 2px rgba(0, 0, 0, 0.1)"
+    boxShadow: "0 0 0 2px rgba(0, 0, 0, 0.1)",
+    breakpoints: {
+      small: "@media (min-width: 480px)",
+      medium: "@media (min-width: 768px)",
+      large: "@media (min-width: 1200px)"
+    }
   },
   fonts: {
     primary: "'Open Sans', sans-serif"

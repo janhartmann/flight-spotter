@@ -14,6 +14,9 @@ export const server = new ApolloServer({
     typeDefs: schema,
     resolvers
   }),
+  cors: {
+    origin: process.env.CORS_ORIGIN || "*"
+  },
   dataSources: () => {
     return {
       flightApi: new FlightApi()

@@ -1,7 +1,7 @@
 import * as React from "react";
 import injectSheet, { StyleCreator, StyledComponentProps } from "react-jss";
 import * as ReactDOM from "react-dom";
-import * as mapboxgl from "mapbox-gl";
+import mapboxgl from "mapbox-gl";
 import classNames from "classnames";
 
 import { MapContext } from "./MapContext";

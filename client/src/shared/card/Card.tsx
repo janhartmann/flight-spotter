@@ -26,7 +26,7 @@ const Card: React.FC<ICardProps> = ({
       })}
     >
       {(title || action) && <CardHeader title={title} action={action} />}
-      {children && <div className={classes.content}>{children}</div>}
+      {children}
     </div>
   );
 };
@@ -41,10 +41,6 @@ const styles: StyleCreator = (theme: ITheme) => ({
     padding: theme.layout.gutter,
     boxShadow: theme.layout.boxShadow,
     position: "relative"
-  },
-  content: {
-    width: "100%",
-    height: "100%"
   }
 });
 

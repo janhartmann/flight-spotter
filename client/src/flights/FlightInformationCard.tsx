@@ -24,7 +24,7 @@ const FlightInformationCard: React.FC<IFlightInformationCardProps> = ({
   return (
     <Card className={classes.card}>
       {loading && <Spinner className={classes.spinner} />}
-      {!loading && (
+      {!loading && flight && (
         <div className={classes.root}>
           <CardHeader
             title={
@@ -34,7 +34,7 @@ const FlightInformationCard: React.FC<IFlightInformationCardProps> = ({
                   size={20}
                   className={classes.flightIcon}
                 />
-                {flight.callsign}
+                {flight.callsign || "UNKNOWN"}
               </React.Fragment>
             }
           />
@@ -88,7 +88,10 @@ const styles: StyleCreator = (theme: ITheme) => ({
     opacity: 0.95
   },
   root: {
-    width: 300
+    width: "100%",
+    [theme.layout.breakpoints.medium]: {
+      width: 300
+    }
   },
   spinner: {
     color: theme.colors.white
