@@ -9,7 +9,7 @@ import { onError } from "apollo-link-error";
 import introspectionResultData from "./generated-types";
 
 const httpLink = createHttpLink({
-  uri: "http://localhost:5000"
+  uri: process.env.FLIGHT_SPOTTER_SERVER || "http://localhost:5000"
 });
 
 const errorLink = onError(({ graphQLErrors, networkError }) => {
