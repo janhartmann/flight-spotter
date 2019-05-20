@@ -77,6 +77,8 @@ There can be aircrafts which has just grounded but appears to be bypassing an ai
 
 Some flights can have missing data, like route information, trajectories and altitude data being wrong.
 
+Sometimes The OpenSky Network API can be down for a very short period of time, if it is getting a lot of requests at the same time.
+
 ## FAQ
 
 **Predicting flight position using stale data**
