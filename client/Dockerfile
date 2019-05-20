@@ -16,4 +16,4 @@ RUN yarn global add http-server
 
 EXPOSE 3000
 
-ENTRYPOINT exec http-server ./ -p 3000 -gzip
+ENTRYPOINT exec http-server ./ -p 3000
