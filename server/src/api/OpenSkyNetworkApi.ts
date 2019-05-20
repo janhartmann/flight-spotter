@@ -1,4 +1,8 @@
-import { RESTDataSource, RequestOptions } from "apollo-datasource-rest";
+import {
+  RESTDataSource,
+  RequestOptions,
+  Request
+} from "apollo-datasource-rest";
 
 import { IContext } from "../context";
 
@@ -176,5 +180,20 @@ export default class OpenSkyNetworkApi extends RESTDataSource<IContext>
         ).toString("base64")}`
       );
     }
+  }
+
+  protected didEncounterError(error: Error, request: Request) {
+    // tslint:disable-next-line: no-console
+    console.error(
+      JSON.stringify({
+        url: request.url,
+        method: request.method,
+        body: request.bodyUsed,
+        headers: request.headers,
+        error: {
+          ...error
+        }
+      })
+    );
   }
 }

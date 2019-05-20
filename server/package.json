@@ -8,6 +8,7 @@
     "email": "kontakt@janhartmann.dk",
     "url": "https://janhartmann.dk"
   },
+  "homepage": "https://github.com/janhartmann/flight-spotter",
   "scripts": {
     "build": "tsc --noEmit",
     "start": "cross-env NODE_ENV=development npm-run-all build server:dev",

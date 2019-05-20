@@ -8,6 +8,7 @@
     "email": "kontakt@janhartmann.dk",
     "url": "https://janhartmann.dk"
   },
+  "homepage": "https://github.com/janhartmann/flight-spotter",
   "main": "./src/index.tsx",
   "scripts": {
     "start": "webpack-dev-server --mode=development --watch",

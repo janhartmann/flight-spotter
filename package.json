@@ -8,6 +8,7 @@
     "email": "kontakt@janhartmann.dk",
     "url": "https://janhartmann.dk"
   },
+  "homepage": "https://github.com/janhartmann/flight-spotter",
   "scripts": {
     "install": "concurrently --prefix-colors magenta,blue -n server,client \"yarn server:install\" \"yarn client:install\"",
     "start": "gql-gen && concurrently --prefix-colors magenta,blue -n server,client \"yarn server:start\" \"yarn client:start\"",
