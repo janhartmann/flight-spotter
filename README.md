@@ -8,12 +8,15 @@ This is an "full-stack" example (and hopefully a source of inspiration), on how 
 
 ![Screenshot](https://github.com/janhartmann/flight-spotter/blob/master/docs/screenshot.png)
 
-## Live Demo and Playground
+## Live Demo
 
-| URL                                       | Description                                  |
-| ----------------------------------------- | -------------------------------------------- |
-| https://flight-spotter.janhartmann.dk     | The client showing the map with all flights  |
-| https://flight-spotter-api.janhartmann.dk | The server with an active GraphQL Playground |
+**The interactive map with flights**
+
+https://flight-spotter.janhartmann.dk
+
+**The server with an active GraphQL Playground**
+
+https://flight-spotter-api.janhartmann.dk
 
 ## Highlights
 
@@ -100,7 +103,8 @@ This is done to avoid writing the same things which are already described by the
 
 ## Contributions
 
-Have an idea, a bug fix or some comments? Open an issue and let's have a talk!
+Have an idea, a bug fix, comments or questions? Open an issue and let's have a talk!
 
+## License
 
-
+MIT
