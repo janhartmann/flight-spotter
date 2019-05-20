@@ -5,10 +5,11 @@ export const queryResolver: QueryResolvers = {
     const { latitudeMin, latitudeMax, longitudeMin, longitudeMax } = args.input;
     const bounds = [[latitudeMin, longitudeMin], [latitudeMax, longitudeMax]];
     const results = await context.dataSources.flightApi.getFlights(bounds);
-    if (results) {
+    if (results && results.length > 0) {
       // We are only interested in the flights not grounded
       return results.filter(result => result[8] === false);
     }
+    return [];
   },
   flight: async (parent, args, context) => {
     const { id } = args.input;

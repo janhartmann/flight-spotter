@@ -94,31 +94,39 @@ export default class OpenSkyNetworkApi extends RESTDataSource<IContext>
   public async getFlights(
     bounds: number[][]
   ): Promise<IOpenSkyApiStateResponse[]> {
-    const result = await this.get<IOpenSkyApiResponse>(
-      `states/all?lamin=${bounds[0][0]}&lomin=${bounds[0][1]}&lamax=${
-        bounds[1][0]
-      }&lomax=${bounds[1][1]}`
-    );
+    try {
+      const result = await this.get<IOpenSkyApiResponse>(
+        `states/all?lamin=${bounds[0][0]}&lomin=${bounds[0][1]}&lamax=${
+          bounds[1][0]
+        }&lomax=${bounds[1][1]}`
+      );
 
-    if (!result || !result.states) {
+      if (!result || !result.states) {
+        return [];
+      }
+
+      return result.states.map(
+        state => (state as unknown) as IOpenSkyApiStateResponse
+      );
+    } catch (err) {
       return [];
     }
-
-    return result.states.map(
-      state => (state as unknown) as IOpenSkyApiStateResponse
-    );
   }
 
   public async getFlight(icao24: string): Promise<IOpenSkyApiStateResponse> {
-    const result = await this.get<IOpenSkyApiResponse>(
-      `states/all?icao24=${icao24}`
-    );
+    try {
+      const result = await this.get<IOpenSkyApiResponse>(
+        `states/all?icao24=${icao24}`
+      );
 
-    if (!result || !result.states) {
+      if (!result || !result.states) {
+        return null;
+      }
+
+      return (result.states[0] as unknown) as IOpenSkyApiStateResponse;
+    } catch (err) {
       return null;
     }
-
-    return (result.states[0] as unknown) as IOpenSkyApiStateResponse;
   }
 
   public async getTrajectory(
