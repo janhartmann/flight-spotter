@@ -1,6 +1,6 @@
 type Procedure = (...args: any[]) => any;
 
-interface Debounce {
+interface IDebounce {
   (...args: any[]): any;
   clear: () => void;
   flush: () => void;
@@ -58,7 +58,7 @@ export const debounce = (
     }
   };
 
-  const debounced: Debounce = (() => {
+  const debounced: IDebounce = (() => {
     const f: any = debouncedFunc;
     f.clear = clear;
     f.flush = flush;

@@ -73,7 +73,7 @@ Based on The OpenSky Network REST endpoints, we can create the following schema 
 
 The flight data is coming from The OpenSky Network and itself has a few limitations, please see [their page](https://opensky-network.org/apidoc/rest.html#limitations) for more information.
 
-There can be aircrafts which has just grounded but appears to be bypassing an airport, this can happend when we are predicting its flight path, but the aircraft landed on its path towards the airport.
+There can be aircraft's which has just grounded but appears to be bypassing an airport, this can happend when we are predicting its flight path, but the aircraft landed on its path towards the airport.
 
 Some flights can have missing data, like route information, trajectories and altitude data being wrong.
 

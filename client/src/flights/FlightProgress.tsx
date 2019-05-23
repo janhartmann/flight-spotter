@@ -17,11 +17,10 @@ const FlightProgress: React.FC<IFlightProgressProps> = ({
   flight,
   className
 }) => {
-  if (!flight.route || !flight.route.departure || !flight.route.arrival) {
-    return null;
-  }
-
   const progress = React.useMemo(() => {
+    if (!flight.route || !flight.route.departure || !flight.route.arrival) {
+      return null;
+    }
     const total = turf.distance(
       [
         flight.route.departure.coordinates.longitude,
@@ -49,6 +48,10 @@ const FlightProgress: React.FC<IFlightProgressProps> = ({
 
     return (travelled / total) * 100;
   }, [flight]);
+
+  if (!progress) {
+    return null;
+  }
 
   return (
     <div

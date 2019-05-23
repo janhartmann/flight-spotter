@@ -36,7 +36,7 @@ const FlightLayer: React.FC<IFightLayerProps> = ({
 
   React.useEffect(() => {
     map.addLayer({
-      id: id,
+      id,
       source,
       type: "symbol",
       layout: {

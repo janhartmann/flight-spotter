@@ -29,8 +29,8 @@ export const getFlightPathPrediction = (
     units: "meters"
   });
 
-  const arc: GeoJSON.Feature<GeoJSON.Point>[] = [];
-  for (var i = 0; i < distance; i += distance / steps) {
+  const arc: Array<GeoJSON.Feature<GeoJSON.Point>> = [];
+  for (let i = 0; i < distance; i += distance / steps) {
     arc.push(
       turf.along(route, i, {
         units: "meters"

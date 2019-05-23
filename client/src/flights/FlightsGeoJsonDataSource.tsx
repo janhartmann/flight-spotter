@@ -40,7 +40,7 @@ const FlightsGeoJsonDataSource: React.FC<IFlightsGeoJsonDataSourceProps> = ({
     const steps = 50;
     const duration = 10; // in seconds
     const predictions: {
-      [index: string]: GeoJSON.Feature<GeoJSON.Point>[];
+      [index: string]: Array<GeoJSON.Feature<GeoJSON.Point>>;
     } = {};
 
     data.flights.forEach(flight => {
