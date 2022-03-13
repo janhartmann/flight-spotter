@@ -40,7 +40,7 @@
   },
   "dependencies": {
     "@turf/turf": "^5.1.6",
-    "apexcharts": "^3.6.11",
+    "apexcharts": "^3.27.0",
     "apollo-cache-inmemory": "^1.5.1",
     "apollo-client": "^2.5.1",
     "apollo-link-error": "^1.1.10",
