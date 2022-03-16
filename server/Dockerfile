@@ -1,12 +1,12 @@
 
-FROM node:10-alpine AS build
+FROM node:17.5.0-alpine AS build
 WORKDIR /app
 
 COPY . /app
 RUN yarn install
 RUN yarn build
 
-FROM node:10-alpine
+FROM node:17.5.0-alpine
 WORKDIR /app
 
 RUN yarn install --production
