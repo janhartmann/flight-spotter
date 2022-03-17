@@ -1,19 +1,26 @@
-FROM node:10-alpine AS build
+
+FROM node:12-alpine as builder
 WORKDIR /app
 
 COPY . /app
 
+COPY package.json ./
+
+COPY tsconfig.json ./
+
+COPY tslint.json ./
+
 RUN yarn install
 RUN yarn build
 
-FROM node:10-alpine
-WORKDIR /app
-
+FROM node:12-alpine as server
 RUN yarn install --production
-COPY --from=build /app/dist ./
+COPY --from=builder /app/dist /app/dist
 
 RUN yarn global add http-server
+WORKDIR /app
 
-EXPOSE 3000
-
-ENTRYPOINT exec http-server ./ -p 3000
+ARG PORT=3000
+ENV PORT=${PORT}
+EXPOSE $PORT
+CMD sh -c http-server . -p $PORT -s
