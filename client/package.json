@@ -41,8 +41,8 @@
   "dependencies": {
     "@turf/turf": "^5.1.6",
     "apexcharts": "^3.27.0",
-    "apollo-cache-inmemory": "^1.5.1",
-    "apollo-client": "^2.5.1",
+    "apollo-cache-inmemory": "^1.6.6",
+    "apollo-client": "^2.6.10",
     "apollo-link-error": "^1.1.10",
     "apollo-link-http": "^1.5.14",
     "classnames": "^2.2.6",
