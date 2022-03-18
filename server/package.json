@@ -22,7 +22,7 @@
     "dotenv": "^8.0.0",
     "graphql": "^14.3.0",
     "graphql-import": "^0.7.1",
-    "graphql-tools": "^4.0.4"
+    "graphql-tools": "^4.0.8"
   },
   "devDependencies": {
     "@types/dotenv": "^6.1.1",
