@@ -49,7 +49,7 @@
     "graphql": "^14.3.0",
     "graphql-tag": "^2.12.6",
     "mapbox-gl": "^1.3.0",
-    "moment": "^2.29.2",
+    "moment": "^2.29.3",
     "react": "^16.8.6",
     "react-apexcharts": "^1.3.9",
     "react-apollo": "^2.5.5",
