@@ -17,12 +17,12 @@
   },
   "dependencies": {
     "@turf/turf": "^5.1.6",
-    "apollo-datasource-rest": "^0.4.0",
-    "apollo-server": "^2.5.0",
-    "dotenv": "^8.0.0",
+    "apollo-datasource-rest": "^0.14.0",
+    "apollo-server": "^2.6.0",
+    "dotenv": "^8.6.0",
     "graphql": "^14.3.0",
     "graphql-import": "^0.7.1",
-    "graphql-tools": "^4.0.4"
+    "graphql-tools": "^4.0.8"
   },
   "devDependencies": {
     "@types/dotenv": "^6.1.1",
