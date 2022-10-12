@@ -18,7 +18,7 @@
   "dependencies": {
     "@turf/turf": "^5.1.6",
     "apollo-datasource-rest": "^0.4.0",
-    "apollo-server": "^2.5.0",
+    "apollo-server": "^2.25.4",
     "dotenv": "^8.0.0",
     "graphql": "^14.3.0",
     "graphql-import": "^0.7.1",
